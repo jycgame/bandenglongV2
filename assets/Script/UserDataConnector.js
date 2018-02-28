@@ -14,7 +14,10 @@ cc.Class({
         },
 
         getURLParameter: function (name) {
-            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+            if (cc.sys.isNative)
+                return "æœªç™»å½•";
+            else
+                return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
         },
 
         getUserData: function (caller, callback) {
@@ -28,7 +31,7 @@ cc.Class({
                 if (xmlhttp.readyState == 4) {
                     if (xmlhttp.status == 200) {
                         var obj = JSON.parse(xmlhttp.responseText);
-                        if (obj.data == null) {//Î´µÇÂ¼
+                        if (obj.data == null) {//Î´ï¿½ï¿½Â¼
                             window.isEmployee = false;
                             cc.sys.localStorage.setItem("bonusfirstTime", 1);
                             window.firstTime = false;
@@ -78,7 +81,7 @@ cc.Class({
                             window.firstTime = false;
                             self.getTop5(caller, callback);
                         }
-                        else //µÚÒ»´ÎÍæ
+                        else //ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½
                         {
                             cc.sys.localStorage.setItem("bonusfirstTime", 1);
                             window.firstTime = true;
