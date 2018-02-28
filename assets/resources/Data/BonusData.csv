@@ -1,18 +1,18 @@
 Name,Value,Desc
 String,float,Skip
-SmallCoin_Value,400,³õÊ¼ËÙ¶È
-JinChengWeiDao_Value,20,»î¶¯Ê±¼ä
-LongXia_Time,2,Ã¿²¨¸öÊı
-ZhaXie_Time,0;2;15;30;50,±ä¼ä¸ôÊ±¼ä
-SpeedDownRate,0.5;1.5;1.5;1;0.5,Ê±¼ä¼ä¸ô
-RouBao_Time,5,Ò»¸öÁúÏºµÄ·ÖÊı
-Multiplicity,100,ÁúÖéµÄÉúÃüÖµ
-InitialMoveInterval,4,µ¥´ÎÅö×²µÄÉËº¦
-SpeedUpRate,10,ÄÜÁ¿ÉÏÏŞÖµ
-ItemCountLimite,1,Ã¿´ÎÔö¼ÓµÄÄÜÁ¿
-FireWorksMaxCount,5,ÎŞµĞÊ±¼ä
-,180;320;240,ÁúÏºËÙ¶È·Ö²¼
-,0.8;0.15;0.05,ÁúÏºËÙ¶È·Ö²¼¸ÅÂÊ
-,15,³ÔÁúÏºµÄ¼ÓËÙ
-,10,Ò»¸öó¦Ğ·µÄ·ÖÊı
-,0.7;0.3,ÁúÏºó¦Ğ·¸ÅÂÊ
+SmallCoin_Value,400,åˆå§‹é€Ÿåº¦
+JinChengWeiDao_Value,20,æ´»åŠ¨æ—¶é—´
+LongXia_Time,2,æ¯æ³¢ä¸ªæ•°
+ZhaXie_Time,0;2;15;30;50,å˜é—´éš”æ—¶é—´
+SpeedDownRate,0.5;1.5;1.5;1;0.5,æ—¶é—´é—´éš”
+RouBao_Time,5,ä¸€ä¸ªé¾™è™¾çš„åˆ†æ•°
+Multiplicity,100,é¾™ç çš„ç”Ÿå‘½å€¼
+InitialMoveInterval,4,å•æ¬¡ç¢°æ’çš„ä¼¤å®³
+SpeedUpRate,10,èƒ½é‡ä¸Šé™å€¼
+ItemCountLimite,1,æ¯æ¬¡å¢åŠ çš„èƒ½é‡
+FireWorksMaxCount,5,æ— æ•Œæ—¶é—´
+,180;320;240,é¾™è™¾é€Ÿåº¦åˆ†å¸ƒ
+,0.8;0.15;0.05,é¾™è™¾é€Ÿåº¦åˆ†å¸ƒæ¦‚ç‡
+,15,åƒé¾™è™¾çš„åŠ é€Ÿ
+,10,ä¸€ä¸ªèƒèŸ¹çš„åˆ†æ•°
+,0.7;0.3,é¾™è™¾èƒèŸ¹æ¦‚ç‡
