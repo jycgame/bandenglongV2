@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "00bdc009-2b44-44cf-844d-0c1e6f545869",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "logo xiao_00029": {
+      "ver": "1.0.3",
+      "uuid": "7dcef2e0-3466-48e6-8e99-6b4199599bfa",
+      "rawTextureUuid": "00bdc009-2b44-44cf-844d-0c1e6f545869",
+      "trimType": "custom",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 256,
+      "height": 153,
+      "rawWidth": 256,
+      "rawHeight": 153,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "bigCoinScore",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.9833333333333333,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "y": [
+        {
+          "frame": 0,
+          "value": -60
+        },
+        {
+          "frame": 0.9833333333333333,
+          "value": 32
+        }
+      ],
+      "opacity": [
+        {
+          "frame": 0,
+          "value": 255
+        },
+        {
+          "frame": 0.9833333333333333,
+          "value": 0
+        }
+      ]
+    }
+  },
+  "events": [
+    {
+      "frame": 0.9833333333333333,
+      "func": "deactive",
+      "params": []
+    }
+  ]
+}

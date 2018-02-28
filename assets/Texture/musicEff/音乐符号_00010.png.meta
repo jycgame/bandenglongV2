@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "ca88173d-e395-42c9-b3b2-418209edad9e",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "音乐符号_00010": {
+      "ver": "1.0.3",
+      "uuid": "1885ea43-9b09-4ece-b1a9-d512bcddfa10",
+      "rawTextureUuid": "ca88173d-e395-42c9-b3b2-418209edad9e",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -29.5,
+      "offsetY": 8.5,
+      "trimX": 9,
+      "trimY": 46,
+      "width": 83,
+      "height": 51,
+      "rawWidth": 160,
+      "rawHeight": 160,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

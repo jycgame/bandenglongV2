@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "crayfishEnermy",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.85,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 2,
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "8fefbf31-4c68-4f25-bbad-95bffae63c1f"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "bcc52895-d416-42e8-88b6-5b68e697c533"
+            }
+          },
+          {
+            "frame": 0.3333333333333333,
+            "value": {
+              "__uuid__": "ef2a3262-2089-4069-9080-b0311840c816"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "4883c262-40a3-4a27-a481-515d758f5319"
+            }
+          },
+          {
+            "frame": 0.6666666666666666,
+            "value": {
+              "__uuid__": "37850e3f-6f93-4a7d-b2c2-3cdb806d7617"
+            }
+          },
+          {
+            "frame": 0.8333333333333334,
+            "value": {
+              "__uuid__": "1a55d0ce-5031-4cdc-894f-f054921b7ba9"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

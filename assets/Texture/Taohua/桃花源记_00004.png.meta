@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2d768cd6-394a-4434-af20-17861dcf7886",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "桃花源记_00004": {
+      "ver": "1.0.3",
+      "uuid": "f3d89cf5-3292-445a-84f0-483f0a8b0325",
+      "rawTextureUuid": "2d768cd6-394a-4434-af20-17861dcf7886",
+      "trimType": "custom",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 256,
+      "height": 256,
+      "rawWidth": 256,
+      "rawHeight": 256,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

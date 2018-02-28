@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "60b122dc-e629-4d5f-bec2-db124349f771",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "能量球拖尾_00003": {
+      "ver": "1.0.3",
+      "uuid": "6b7a8a4c-183d-4dd3-9480-e11c279225be",
+      "rawTextureUuid": "60b122dc-e629-4d5f-bec2-db124349f771",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -69,
+      "offsetY": 0,
+      "trimX": 61,
+      "trimY": 97,
+      "width": 264,
+      "height": 126,
+      "rawWidth": 524,
+      "rawHeight": 320,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
