@@ -56,7 +56,8 @@ cc.Class({
                 gm.highscore = highscore;
                 gm.highscoreLabel.string = highscore;
                 self.PlayerInfo.init();
-                TDAPP.onEvent("click start");
+                // Talking data isn't available in native app
+                //TDAPP.onEvent("click start");
             }
             else 
             {
@@ -74,7 +75,8 @@ cc.Class({
         gm.inputEnabled = true;
         this.Guide.hide();
         this.PlayerInfo.init();
-        TDAPP.onEvent("click start");
+        // Talking data isn't available in native app
+        // TDAPP.onEvent("click start");
     },
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {

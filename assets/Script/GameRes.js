@@ -1,3 +1,6 @@
+var InputConfig = require('InputConfig');
+var GameState = require('GameState');
+
 cc.Class({
     extends: cc.Component,
 
@@ -6,12 +9,10 @@ cc.Class({
             default: null,
             type: cc.Sprite,
         },
-
         levelLabel: {
             default: null,
             type: cc.Label,
         },
-
         scoreLabel: {
             default: null,
             type: cc.Label,
@@ -37,6 +38,42 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
+        isShow: {
+            default: false,
+        },
+    },
+
+    onLoad: function () {
+        console.log("[GameRes:] onLoad function");
+
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+
+        this.isShow = false;
+    },
+
+    onDestroy: function() {
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    },
+
+    onKeyDown: function(event) {
+        if (GameState.current != GameState.rank)
+            return;
+
+        console.log("[bandenglong] GameRes onKeyDown!");
+
+        if (this.isShow == true) {
+
+            console.log("[onKeyDown]: l59");
+
+            if (event.keyCode == InputConfig.dpadCenter) {
+                
+                console.log("bandenglong onKeyDown");
+            }
+        }
+    },
+
+    setShow: function (show) {
+        this.isShow = show;
     },
 
     // use this for initialization
@@ -67,6 +104,10 @@ cc.Class({
         this.setLabel(this.crayfishLabel, crayfishNum);
         this.setLabel(this.crabLabel, crabNum);
         this.setLabel(this.ballLabel, ballNum);
+
+        this.isShow = true;
+
+        GameState.current = GameState.rank;
     },
 
     setLabel: function (label,val)

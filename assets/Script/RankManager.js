@@ -1,5 +1,7 @@
 var UserDataConnector = require('UserDataConnector');
 var PlayerRank = require('PlayerRank');
+var InputConfig = require('InputConfig');
+
 cc.Class({
     extends: cc.Component,
 
