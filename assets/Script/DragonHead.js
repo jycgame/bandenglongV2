@@ -1,3 +1,5 @@
+var InputConfig = require('InputConfig');
+
 cc.Class({
     extends: cc.Component,
     properties: {
@@ -52,6 +54,8 @@ cc.Class({
         this.setInputControl();
         this.dir = this.GameManager.initialDir;
         this.stunNode = this.node.children[0];
+
+        //cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     },
 
     // called every frame, uncomment this function to activate update callback
@@ -72,7 +76,7 @@ cc.Class({
             for (var i = 1; i < children.length; ++i) {
                 var child = children[i];
                 var body = child.getComponent("DragonBody");
-                if (!body)//×îºóÒ»¸öÊÇTail
+                if (!body)//ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Tail
                     body = child.getComponent("DragonTail");
                 body.OnHeadTurn(this.node.position, newDir);
             }
@@ -133,14 +137,22 @@ cc.Class({
     setInputControl: function () {
         var self = this;
 
+        console.log("NOW INPUTCONFIG WILL OUTPUT:");
+        console.log(InputConfig.dpadDown);
+
         // keyboard input
         cc.eventManager.addListener({
             event: cc.EventListener.KEYBOARD,
 
             onKeyPressed: function (keyCode, event) {
+
+                console.log("onKeyPressed dragonHead");
+                console.log(keyCode);
+
                 switch (keyCode) {
                     case cc.KEY.a:
                     case cc.KEY.left:
+                    case InputConfig.dpadLeft:
                         if (self.tryTurn(new cc.Vec2(-1, 0))) {
                             self.sprite.spriteFrame = self.texLeft;
                             self.stunNode.y = 60;
@@ -148,6 +160,7 @@ cc.Class({
                         break;
                     case cc.KEY.d:
                     case cc.KEY.right:
+                    case InputConfig.dpadRight:
                         if (self.tryTurn(new cc.Vec2(1, 0))) {
                             self.sprite.spriteFrame = self.texRight;
                             self.stunNode.y = 60;
@@ -155,6 +168,7 @@ cc.Class({
                         break;
                     case cc.KEY.w:
                     case cc.KEY.up:
+                    case InputConfig.dpadUp:
                         if (self.tryTurn(new cc.Vec2(0, 1))) {
                             self.sprite.spriteFrame = self.texUp;
                             self.stunNode.y = 0;
@@ -162,6 +176,7 @@ cc.Class({
                         break;
                     case cc.KEY.s:
                     case cc.KEY.down:
+                    case InputConfig.dpadDown:
                         if (self.tryTurn(new cc.Vec2(0, -1))) {
                             self.sprite.spriteFrame = self.texDown;
                             self.stunNode.y = 0;
@@ -175,7 +190,7 @@ cc.Class({
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
 
-            //´¥Ãþ¿ªÊ¼
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼
             onTouchesBegan: function (touches, event) {
                 var touch = touches[0];
                 var loc = touch.getLocation();
@@ -195,7 +210,7 @@ cc.Class({
                 //console.log("touch start");
             },
 
-            //´¥ÃþÖÐ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             onTouchesMoved: function (touches, event) {
                 var touch = touches[0];
                 var loc = touch.getLocation();
@@ -204,7 +219,7 @@ cc.Class({
                 //console.log("touching");
             },
 
-            //´¥Ãþ½áÊø
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             onTouchesEnded: function (touches, event) {
                 if (self.GameManager.inputEnabled)
                 {

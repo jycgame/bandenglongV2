@@ -10,6 +10,7 @@ var Main = require('Main');
 var BigCoinScore = require('BigCoinScore');
 var BuffControl = require('BuffControl');
 var FinalRank = require('FinalRank');
+var InputConfig = require('InputConfig');
 
 var GameManager = cc.Class({
     extends: cc.Component,
@@ -442,6 +443,20 @@ var GameManager = cc.Class({
         this.bigCoinTime = 0;
 
         this.BigCoinScore.init();
+
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    },
+
+    onDestroy: function() {
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    },
+
+    onKeyDown: function(event) {
+        console.log("[bandenglong] key down!");
+        if (event.keyCode == InputConfig.dpadCenter) {
+            
+            this.Main.loadGameScene();
+        }
     },
 
     destroyBigCoins: function () {
