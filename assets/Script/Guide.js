@@ -18,6 +18,8 @@ cc.Class({
     },
 
     onKeyDown: function(event) {
+        if (GameState.current != GameState.help) return;
+        
         if (event.keyCode == InputConfig.dpadCenter) {
             this.main.startGame();
             GameState.current = GameState.play;

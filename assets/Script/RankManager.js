@@ -47,6 +47,9 @@ cc.Class({
 
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
+
+        console.log("[RankManager:]");
+        console.log("onLoad: function()");
     },
 
     onDestroy: function() {
@@ -54,7 +57,13 @@ cc.Class({
     },
 
     onKeyDown: function(event) {
+        
+        console.log("[RankManager]:");
+        console.log(GameState.current);
+
         if (GameState.current != GameState.rank) return;
+
+        
 
         if (event.keyCode == InputConfig.dpadCenter) {
             if (this.playAgainBtn.node.active) {

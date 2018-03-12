@@ -72,6 +72,7 @@ cc.Class({
         if (this.isShow == true) {
 
             console.log("[onKeyDown]: l59");
+            console.log(event.keyCode);
 
             if (event.keyCode == InputConfig.dpadCenter) {
                 console.log("bandenglong onKeyDown");
