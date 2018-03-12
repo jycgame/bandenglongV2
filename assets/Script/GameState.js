@@ -3,8 +3,9 @@ var GameState = {
     invalid : -1,
     title : 0,
     die: 1,
-    rank: 2,
-    help: 3,
+    result: 2,
+    rank: 3,
+    help: 4,
 
     current: -1,
 

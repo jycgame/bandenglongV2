@@ -1,6 +1,7 @@
 var UserDataConnector = require('UserDataConnector');
 var PlayerRank = require('PlayerRank');
 var InputConfig = require('InputConfig');
+var GameState = require('GameState');
 
 cc.Class({
     extends: cc.Component,
@@ -36,7 +37,35 @@ cc.Class({
             default: null,
             type: cc.Button,
         },
+
+        gameManager: null,
+        main: null,
     }),
+
+    onLoad: function() {
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+
+        this.gameManager = cc.find("GameManager").getComponent("GameManager");
+        this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
+    },
+
+    onDestroy: function() {
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+    },
+
+    onKeyDown: function(event) {
+        if (GameState.current != GameState.rank) return;
+
+        if (event.keyCode == InputConfig.dpadCenter) {
+            if (this.playAgainBtn.node.active) {
+                this.gameManager.backToMain();
+            }
+            else {
+                this.hide();
+                this.main.loadGameScene();
+            }
+        }
+    },
 
     setTop5: function (caller, dataList) {
         for (var i = 0; i < dataList.length; i++) {
@@ -83,6 +112,8 @@ cc.Class({
         this.startBtn.interactable = false;
         this.node.parent.parent.active = true;
         this.helpBtn.node.active = false;
+
+        GameState.current = GameState.rank;
     },
 
     hide: function () {

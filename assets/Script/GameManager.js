@@ -716,6 +716,8 @@ var GameManager = cc.Class({
             //this.highscoreResLabel.string = this.highscore;
             img = gm.cheerImg;
         }
+
+        console.log("GameManager.showRes function called.");
         gm.GameRes.setup(img, gm.level, gm.score, gm.time, rank, gm.EnermyAttackManager.crayfishNum, gm.EnermyAttackManager.crabNum, gm.EnermyAttackManager.ballNum)
     },
 
