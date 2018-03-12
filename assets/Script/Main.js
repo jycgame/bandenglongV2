@@ -1,6 +1,8 @@
 var UserDataConnector = require('UserDataConnector');
 var Guide = require('Guide');
 var PlayerInfo = require('PlayerInfo');
+var GameState = require('GameState');
+
 cc.Class({
     extends: cc.Component,
 
@@ -66,6 +68,7 @@ cc.Class({
         });
 
         this.node.active = false;
+        GameState.current = GameState.play;
     },
 
     startGame: function () {

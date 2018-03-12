@@ -1,4 +1,5 @@
 var InputConfig = require('InputConfig');
+var GameState = require('GameState');
 
 cc.Class({
     extends: cc.Component,
@@ -145,6 +146,9 @@ cc.Class({
             event: cc.EventListener.KEYBOARD,
 
             onKeyPressed: function (keyCode, event) {
+                console.log("[dragon head]: ");
+                console.log(GameState.current);
+                if (GameState.current != GameState.play) return;
 
                 console.log("onKeyPressed dragonHead");
                 console.log(keyCode);

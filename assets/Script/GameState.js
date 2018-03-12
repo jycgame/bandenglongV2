@@ -6,6 +6,7 @@ var GameState = {
     result: 2,
     rank: 3,
     help: 4,
+    play: 5,
 
     current: -1,
 

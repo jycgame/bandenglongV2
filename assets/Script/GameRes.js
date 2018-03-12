@@ -85,7 +85,7 @@ cc.Class({
                     this.gameManager.backToMain1();
                 }
             }
-            else if (event.keyCode == InputConfig.dpadLeft) {
+            else if (event.keyCode == InputConfig.dpadRight) {
                 if (GameResFocusButton.current == GameResFocusButton.rank) {
                     GameResFocusButton.current = GameResFocusButton.playagain;
                     console.log(GameResFocusButton.current);
@@ -99,6 +99,23 @@ cc.Class({
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
                     GameResFocusButton.current = GameResFocusButton.rank;
+                    console.log(GameResFocusButton.current);
+                }
+            }
+            else if (event.keyCode == InputConfig.dpadLeft) {
+                if (GameResFocusButton.current == GameResFocusButton.rank) {
+                    GameResFocusButton.current = GameResFocusButton.mainmenu;
+                    console.log(GameResFocusButton.current);
+                    //TODO: 显示相关的focus图片
+
+                }
+                else if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                    
+                    GameResFocusButton.current = GameResFocusButton.rank;
+                    console.log(GameResFocusButton.current);
+                }
+                else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
+                    GameResFocusButton.current = GameResFocusButton.playagain;
                     console.log(GameResFocusButton.current);
                 }
             }

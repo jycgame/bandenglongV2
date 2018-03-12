@@ -12,6 +12,7 @@ var BuffControl = require('BuffControl');
 var FinalRank = require('FinalRank');
 var InputConfig = require('InputConfig');
 var GameState = require('GameState');
+var GameTitleButton = require('GameTitleButton');
 
 var GameManager = cc.Class({
     extends: cc.Component,
@@ -117,66 +118,46 @@ var GameManager = cc.Class({
             default: null,
             type: cc.Prefab,
         },
-        //sysj:
-        //{
-        //    default: null,
-        //    type: cc.Prefab,
-        //},
-        //jcwd:
-        //{
-        //    default: null,
-        //    type: cc.Prefab,
-        //},
-
-
         bgAudio1:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         bgAudio2:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         coinAudio1:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         coinAudio2:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         bunAudio1:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         bunAudio2:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         wordAudio:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         phraseAudio:
         {
             default: null,
             type: cc.AudioSource,
         },
-
         crabAudio1:
         {
             default: null,
@@ -206,39 +187,6 @@ var GameManager = cc.Class({
             default: null,
             type: cc.AudioSource,
         },
-
-        //jcwdUINode:
-        //{
-        //    default: null,
-        //    type: cc.Node,
-        //},
-
-        //sysjUINode:
-        //{
-        //    default: null,
-        //    type: cc.Node,
-        //},
-
-        //jcwdGray: {
-        //    default: [],
-        //    type: [cc.SpriteFrame]
-        //},
-
-        //jcwdColor: {
-        //    default: [],
-        //    type: [cc.SpriteFrame]
-        //},
-
-        //sysjGray: {
-        //    default: [],
-        //    type: [cc.SpriteFrame]
-        //},
-
-        //sysjColor: {
-        //    default: [],
-        //    type: [cc.SpriteFrame]
-        //},
-
         cheerImg: {
             default: null,
             type: cc.SpriteFrame
@@ -301,7 +249,10 @@ var GameManager = cc.Class({
         BigCoinScore: {
             default: null,
             type: BigCoinScore,
-        }
+        }, 
+        rankManager: null,
+        guide: null,
+        main: null,
     },
 
     invincible: null,
@@ -444,10 +395,17 @@ var GameManager = cc.Class({
         this.bigCoinTime = 0;
 
         this.BigCoinScore.init();
-
-        GameState.current = GameState.title;
-
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+
+        //当前的游戏状态（记录在哪个画面上)
+        //注意：好几个按钮都会直接出发scene重新加载的动作，所以这里不一定被出发的时候不一定画面是在title上
+        if (GameState.current == GameState.invalid) 
+            GameState.current = GameState.title;
+        //初始化画面是title的时候的第一个button焦点
+        GameTitleButton.current = GameTitleButton.startgame;
+        this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
+        this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
+        this.guide = cc.find("Canvas/HUD/Guid").getComponent("Guide");
     },
 
     onDestroy: function() {
@@ -455,11 +413,54 @@ var GameManager = cc.Class({
     },
 
     onKeyDown: function(event) {
+        console.log(GameState.current);
         if (GameState.current != GameState.title)
             return;
-        
-        if (event.keyCode == InputConfig.dpadCenter) {
-            this.Main.loadGameScene();
+
+        console.log("Now GameState is");
+        console.log(GameState.current);
+
+        console.log(event.keyCode);
+
+        if (event.keyCode == InputConfig.dpadRight) {
+            if (GameTitleButton.current == GameTitleButton.startgame) {
+                GameTitleButton.current = GameTitleButton.rank;
+                console.log(GameTitleButton.current);
+            }
+            else if (GameTitleButton.current == GameTitleButton.rank) {
+                GameTitleButton.current = GameTitleButton.help;
+                console.log(GameTitleButton.current);
+            }
+            else if (GameTitleButton.current == GameTitleButton.help) {
+                GameTitleButton.current = GameTitleButton.startgame;
+                console.log(GameTitleButton.current);
+            }
+        }
+        else if (event.keyCode == InputConfig.dpadLeft) {
+            if (GameTitleButton.current == GameTitleButton.startgame) {
+                GameTitleButton.current = GameTitleButton.help;
+                console.log(GameTitleButton.current);
+            }
+            else if (GameTitleButton.current == GameTitleButton.rank) {
+                GameTitleButton.current = GameTitleButton.startgame;
+                console.log(GameTitleButton.current);
+            }
+            else if (GameTitleButton.current == GameTitleButton.help) {
+                GameTitleButton.current = GameTitleButton.rank;
+                console.log(GameTitleButton.current);
+            }
+        }
+        else if (event.keyCode == InputConfig.dpadCenter) {
+            if (GameTitleButton.current == GameTitleButton.startgame) {
+                this.Main.loadGameScene();
+            }
+            else if (GameTitleButton.current == GameTitleButton.rank) {
+                this.rankManager.show();
+            }
+            else if (GameTitleButton.current == GameTitleButton.help) {
+                this.guide.show();
+                this.main.hide();
+            }            
         }
     },
 
@@ -664,12 +665,16 @@ var GameManager = cc.Class({
         window.firstTime = false;
         window.playAgain = true;
         cc.director.loadScene("Level_1");
+
+        GameState.current = GameState.play;
     },
 
     backToMain1: function () {
         window.firstTime = false;
         window.playAgain = false;
         cc.director.loadScene("Level_1");
+
+        GameState.current = GameState.title;
     },
 
     gameOver: function () {
