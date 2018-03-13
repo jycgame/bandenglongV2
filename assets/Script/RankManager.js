@@ -44,6 +44,9 @@ cc.Class({
         rankManager: null,
         //record the previous state since Rank panel will show during differenct stack
         previousGameState: null,
+        closeButton: null,
+        startGameButton: null,
+        playAgainButton: null,
     }),
 
     onLoad: function() {
@@ -52,6 +55,10 @@ cc.Class({
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
         this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
 
+        this.closeButton = cc.find("Canvas/RankMask/Rank/CloseButton");
+        this.playAgainButton = cc.find("Canvas/RankMask/Rank/PlayAgainButton");
+        this.startGameButton = cc.find("Canvas/RankMask/Rank/StartGameButton");
+
         RankManagerButton.current = RankManagerButton.other;
     },
 
@@ -59,17 +66,20 @@ cc.Class({
         
         if (GameState.current != GameState.rank) return;
 
-        console.log("RankManager onKeyDown");
-        console.log(GameState.current);
-
         if (event.keyCode == InputConfig.dpadRight) {
             if (RankManagerButton.current == RankManagerButton.other) {
                 RankManagerButton.current = RankManagerButton.close;
-                console.log("close button focused.");
             }
             else {
                 RankManagerButton.current = RankManagerButton.other;
-                console.log("play again focused.");
+            }
+        }
+        else if (event.keyCode == InputConfig.dpadLeft) {
+            if (RankManagerButton.current == RankManagerButton.other) {
+                RankManagerButton.current = RankManagerButton.close;
+            }
+            else {
+                RankManagerButton.current = RankManagerButton.other;
             }
         }
         else if (event.keyCode == InputConfig.dpadCenter) {
@@ -155,9 +165,27 @@ cc.Class({
         }
     },
     // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-    //     if (this.node.parent.parent.active) {
-    //         GameState.current = GameState.rank;
-    //     }
-    // },
+    update: function (dt) {
+        this.closeButton.scaleX = 1;
+        this.closeButton.scaleY = 1;
+        this.playAgainButton.scaleX = 1;
+        this.playAgainButton.scaleY = 1;
+        this.startGameButton.scaleX = 3;
+        this.startGameButton.scaleY = 3;
+        var scale = 1.2;
+        if (RankManagerButton.current == RankManagerButton.close) {
+            this.closeButton.scaleX = scale;
+            this.closeButton.scaleY = scale;
+        }
+        else {
+            if(this.startBtn2.node.active) {
+                this.startGameButton.scaleX = 3.2;
+                this.startGameButton.scaleY = 3.2;
+            }
+            else {
+                this.playAgainButton.scaleX = scale;
+                this.playAgainButton.scaleY = scale;
+            }
+        }
+    },
 });

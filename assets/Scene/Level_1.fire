@@ -65700,7 +65700,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "playAginBtn",
+    "_name": "PlayAgainButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2168
@@ -65744,7 +65744,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -405
+      "y": -421
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -65858,7 +65858,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button",
+    "_name": "StartGameButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2168
@@ -67336,7 +67336,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "close",
+    "_name": "CloseButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2168
@@ -74276,7 +74276,10 @@
     "gameManager": null,
     "main": null,
     "rankManager": null,
-    "previousGameState": null
+    "previousGameState": null,
+    "closeButton": null,
+    "startGameButton": null,
+    "playAgainButton": null
   },
   {
     "__type__": "cc.Node",

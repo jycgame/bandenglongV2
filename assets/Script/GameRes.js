@@ -163,17 +163,18 @@ cc.Class({
         this.playAgainButton.scaleY = 1;
         this.mainMenuButton.scaleX = 1;
         this.mainMenuButton.scaleY = 1;
+        var scale = 1.2;
         if (GameResFocusButton.current == GameResFocusButton.rank) {
-            this.rankButton.scaleX = 1.5;
-            this.rankButton.scaleY = 1.5;
+            this.rankButton.scaleX = scale;
+            this.rankButton.scaleY = scale;
         }
         else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-            this.mainMenuButton.scaleX = 1.5;
-            this.mainMenuButton.scaleY = 1.5;
+            this.mainMenuButton.scaleX = scale;
+            this.mainMenuButton.scaleY = scale;
         }
         else if (GameResFocusButton.current == GameResFocusButton.playagain) {
-            this.playAgainButton.scaleX = 1.5;
-            this.playAgainButton.scaleY = 1.5;
+            this.playAgainButton.scaleX = scale;
+            this.playAgainButton.scaleY = scale;
         }
     },
 });
