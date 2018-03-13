@@ -49,7 +49,7 @@ cc.Class({
 
     onLoad: function () {
         //warning: function "setup" is called before this function
-         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
          this.gameManager = cc.find("GameManager").getComponent("GameManager");
          console.log(this.gameManager);
          this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
@@ -58,7 +58,7 @@ cc.Class({
     },
 
     onDestroy: function() {
-        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
     },
 
     onKeyDown: function(event) {

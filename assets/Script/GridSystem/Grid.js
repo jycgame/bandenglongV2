@@ -29,7 +29,6 @@ cc.Class({
 
     onLoad: function () {
         this.createGrid();
-        //cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     },
 
     //onKeyDown: function (event) {
@@ -58,7 +57,7 @@ cc.Class({
             this.nodes[i] = nodesRow;
         }
 
-        //±éÀúËùÓÐ½ð±Ò£¬ÕÒ³öÄÜ×ßµÄnode,²¢Æ¥Åä½ð±ÒºÍnode
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½Ò£ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ßµï¿½node,ï¿½ï¿½Æ¥ï¿½ï¿½ï¿½Òºï¿½node
         for (var i = 0; i < this.goldsNode.childrenCount; i++) {
             var coinNode = this.goldsNode.children[i];
             var node = this.getNodeFromPosition(coinNode.position);

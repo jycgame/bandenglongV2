@@ -27,7 +27,6 @@ var GameManager = cc.Class({
         speed: 100,
         initialDir: new cc.Vec2(0, 1),
         dragonBodyGap: 100,
-        //enermyAttackThrehold: 5,
         bigCoinThrehold: 5,
 
         FinalRank: {
@@ -395,7 +394,7 @@ var GameManager = cc.Class({
         this.bigCoinTime = 0;
 
         this.BigCoinScore.init();
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
 
         //当前的游戏状态（记录在哪个画面上)
         //注意：好几个按钮都会直接出发scene重新加载的动作，所以这里不一定被出发的时候不一定画面是在title上
@@ -409,7 +408,7 @@ var GameManager = cc.Class({
     },
 
     onDestroy: function() {
-        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
     },
 
     onKeyDown: function(event) {
@@ -461,6 +460,10 @@ var GameManager = cc.Class({
                 this.guide.show();
                 this.main.hide();
             }            
+        }
+        else if (event.keyCode == InputConfig.dpadBack) {
+            console.log("event back received.");
+            cc.game.end();
         }
     },
 

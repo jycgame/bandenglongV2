@@ -23,17 +23,6 @@ cc.Class({
             default: null,
             type: PlayerInfo,
         },
-
-        //jcwdNode: {
-        //    default: null,
-        //    type: cc.Node,
-        //},
-
-        //sysjNode:
-        //{
-        //    default: null,
-        //    type: cc.Node,
-        //},
     },
 
     // use this for initialization
@@ -81,11 +70,21 @@ cc.Class({
         // Talking data isn't available in native app
         // TDAPP.onEvent("click start");
     },
-    // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-    // },
+
 
     hide: function () {
         this.node.active = false;
     },
+
+    onLoad: function() {
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+    },
+
+    onDestroy: function() {
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+    },
+
+    onKeyUp: function() {
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+    }
 });

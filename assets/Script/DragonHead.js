@@ -55,8 +55,6 @@ cc.Class({
         this.setInputControl();
         this.dir = this.GameManager.initialDir;
         this.stunNode = this.node.children[0];
-
-        //cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     },
 
     // called every frame, uncomment this function to activate update callback

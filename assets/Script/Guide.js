@@ -9,12 +9,12 @@ cc.Class({
     },
 
     onLoad: function() {
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
     },
 
     onDestroy: function() {
-        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
     },
 
     onKeyDown: function(event) {

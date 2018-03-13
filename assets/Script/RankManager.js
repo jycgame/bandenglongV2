@@ -2,6 +2,7 @@ var UserDataConnector = require('UserDataConnector');
 var PlayerRank = require('PlayerRank');
 var InputConfig = require('InputConfig');
 var GameState = require('GameState');
+var RankManagerButton = require('RankManagerButton');
 
 cc.Class({
     extends: cc.Component,
@@ -40,38 +41,60 @@ cc.Class({
 
         gameManager: null,
         main: null,
+        rankManager: null,
+        //record the previous state since Rank panel will show during differenct stack
+        previousGameState: null,
     }),
 
     onLoad: function() {
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
 
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
+        this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
+
+        RankManagerButton.current = RankManagerButton.other;
 
         console.log("[RankManager:]");
         console.log("onLoad: function()");
     },
 
     onDestroy: function() {
-        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
     },
 
     onKeyDown: function(event) {
         
-        console.log("[RankManager]:");
-        console.log(GameState.current);
-
         if (GameState.current != GameState.rank) return;
 
-        
+        console.log("RankManager onKeyDown");
+        console.log(GameState.current);
 
-        if (event.keyCode == InputConfig.dpadCenter) {
-            if (this.playAgainBtn.node.active) {
-                this.gameManager.backToMain();
+        if (event.keyCode == InputConfig.dpadRight) {
+            if (RankManagerButton.current == RankManagerButton.other) {
+                RankManagerButton.current = RankManagerButton.close;
+                console.log("close button focused.");
             }
             else {
-                this.hide();
-                this.main.loadGameScene();
+                RankManagerButton.current = RankManagerButton.other;
+                console.log("play again focused.");
+            }
+        }
+        else if (event.keyCode == InputConfig.dpadCenter) {
+
+            if (RankManagerButton.current == RankManagerButton.other) {
+                if (this.playAgainBtn.node.active) {
+                    this.gameManager.backToMain();
+                }
+                else {
+                    this.hide();
+                    this.main.loadGameScene();
+                }
+            }
+            else {
+                if (this.previousGameState != GameState.invalid) {
+                    this.rankManager.hide();        
+                }
             }
         }
     },
@@ -109,6 +132,9 @@ cc.Class({
     },
 
     show: function () {
+
+        console.log("RankManager show() called.");
+
         if (this.GameManager.time <= 0) {
             this.startBtn2.node.active = true;
             this.playAgainBtn.node.active = false;
@@ -120,19 +146,35 @@ cc.Class({
         this.rankBtn.node.active = false;
         this.startBtn.interactable = false;
         this.node.parent.parent.active = true;
+
+        
         this.helpBtn.node.active = false;
 
-        GameState.current = GameState.rank;
+        //
+        console.log(this.node.parent.parent.active);
+        
+        this.previousGameState = GameState.current;
+        console.log(this.previousGameState);
+        // GameState.current = GameState.rank;
     },
 
     hide: function () {
+
+        console.log("RankManager hide() called.");
         this.rankBtn.node.active = true;
         this.node.parent.parent.active = false;
         this.startBtn.interactable = true;
         this.helpBtn.node.active = true;
+
+        
+        console.log("this hide");
+        console.log("GameState change to: ");
+        console.log(GameState.current);
     },
     // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-
-    // },
+    update: function (dt) {
+        if (this.node.parent.parent.active) {
+            GameState.current = GameState.rank;
+        }
+    },
 });
