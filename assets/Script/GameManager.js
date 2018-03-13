@@ -299,6 +299,12 @@ var GameManager = cc.Class({
     recoverCrabBuffTime: null,
     recoverCrabBuffFactor: null,
     gameStarted: null,
+
+    startGameButton: null,
+    rankButton: null,
+    helpButton: null,
+
+
     onLoad: function () {
         this.FinalRank.init();
         cc.director.resume();
@@ -354,10 +360,6 @@ var GameManager = cc.Class({
         this.curSpeedUpDataIndex = 0;
         var sceneName = cc.director.getScene().name;
 
-        //this.highscore = cc.sys.localStorage.getItem('highscore' + sceneName.split('_')[1]);
-        //if (this.highscore)
-        //    this.highscoreLabel.string = this.highscore;
-
         this.score = 0;
         this.speedUpScore = 0;
         this.enermyAttackScore = 0;
@@ -400,6 +402,11 @@ var GameManager = cc.Class({
         this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
         this.guide = cc.find("Canvas/HUD/Guid").getComponent("Guide");
+
+        //每个button的句柄
+        this.startGameButton = cc.find("Canvas/HUD/Main/StartGameButton");
+        this.rankButton = cc.find("Canvas/HUD/Main/RankButton");
+        this.helpButton = cc.find("Canvas/HUD/Main/GuideButton");
     },
 
     processKeyUp: function(event) {
@@ -575,6 +582,26 @@ var GameManager = cc.Class({
             this.coinEffect();
             this.coinEffectInterval = this.coinEffectIntervalMin + Math.random() * (this.coinEffectIntervalMax - this.coinEffectIntervalMin);
             this.coinEffectTime = 0;
+        }
+
+        //按钮的显示
+        this.startGameButton.scaleX = 3;
+        this.startGameButton.scaleY = 3;
+        this.rankButton.scaleX = 1;
+        this.rankButton.scaleY = 1;
+        this.helpButton.scaleX = 1;
+        this.helpButton.scaleY = 1;
+        if (GameTitleButton.current == GameTitleButton.rank) {
+            this.rankButton.scaleX = 1.5;
+            this.rankButton.scaleY = 1.5;
+        }
+        else if (GameTitleButton.current == GameTitleButton.help) {
+            this.helpButton.scaleX = 1.5;
+            this.helpButton.scaleY = 1.5;
+        }
+        else if (GameTitleButton.current == GameTitleButton.startgame) {
+            this.startGameButton.scaleX = 3.5;
+            this.startGameButton.scaleY = 3.5;
         }
     },
 
