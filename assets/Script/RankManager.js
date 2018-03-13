@@ -47,23 +47,15 @@ cc.Class({
     }),
 
     onLoad: function() {
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
 
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
         this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
 
         RankManagerButton.current = RankManagerButton.other;
-
-        console.log("[RankManager:]");
-        console.log("onLoad: function()");
     },
 
-    onDestroy: function() {
-        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
-    },
-
-    onKeyDown: function(event) {
+    processKeyUp: function(event) {
         
         if (GameState.current != GameState.rank) return;
 

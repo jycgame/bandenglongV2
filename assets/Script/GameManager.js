@@ -394,12 +394,7 @@ var GameManager = cc.Class({
         this.bigCoinTime = 0;
 
         this.BigCoinScore.init();
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
 
-        //当前的游戏状态（记录在哪个画面上)
-        //注意：好几个按钮都会直接出发scene重新加载的动作，所以这里不一定被出发的时候不一定画面是在title上
-        if (GameState.current == GameState.invalid) 
-            GameState.current = GameState.title;
         //初始化画面是title的时候的第一个button焦点
         GameTitleButton.current = GameTitleButton.startgame;
         this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
@@ -407,11 +402,7 @@ var GameManager = cc.Class({
         this.guide = cc.find("Canvas/HUD/Guid").getComponent("Guide");
     },
 
-    onDestroy: function() {
-        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyDown, this);
-    },
-
-    onKeyDown: function(event) {
+    processKeyUp: function(event) {
         console.log(GameState.current);
         if (GameState.current != GameState.title)
             return;
