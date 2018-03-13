@@ -1,6 +1,7 @@
 {
   "appKey": "",
   "appSecret": "",
+  "encryptJs": true,
   "excludeScenes": [
     "62fc0d57-5d7a-43d2-94ec-b51ef9df191f",
     "a1614a46-57e4-48af-b533-7a5d4b3e36f0",
@@ -11,11 +12,9 @@
   ],
   "includeAnySDK": false,
   "includeSDKBox": false,
-  "includeSdk": [
-    "anysdk"
-  ],
   "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
   "md5Cache": false,
   "mergeStartScene": false,
   "oauthLoginServer": "",
@@ -26,10 +25,16 @@
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.helloworld",
+  "packageName": "org.cocos2d.bandenglong",
   "privateKey": "",
   "renderMode": "0",
   "startScene": "cd65164d-0a45-490b-bab9-2aa73e0964c4",
   "title": "BanDengLong",
-  "webOrientation": "landscape"
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "",
+    "orientation": "portrait"
+  },
+  "xxteaKey": "20194eaf-2a74-43",
+  "zipCompressJs": true
 }
