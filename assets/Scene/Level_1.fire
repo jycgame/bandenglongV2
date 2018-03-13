@@ -209,7 +209,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 4884
@@ -1006,7 +1006,10 @@
     },
     "BigCoinScore": {
       "__id__": 3631
-    }
+    },
+    "rankManager": null,
+    "guide": null,
+    "main": null
   },
   {
     "__type__": "c6c72shmWdCBLZwxVKnIvTT",
@@ -66093,7 +66096,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button",
+    "_name": "StartGameButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2179
@@ -66471,7 +66474,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button",
+    "_name": "RankButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2179
@@ -66629,7 +66632,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "guideBtn",
+    "_name": "GuideButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2179
@@ -67038,7 +67041,8 @@
     "node": {
       "__id__": 2199
     },
-    "_enabled": true
+    "_enabled": true,
+    "main": null
   },
   {
     "__type__": "cc.ClickEvent",
@@ -67120,7 +67124,11 @@
     },
     "PlayerInfo": {
       "__id__": 2210
-    }
+    },
+    "gameManager": null,
+    "guide": null,
+    "gameResult": null,
+    "rankManager": null
   },
   {
     "__type__": "31731fiD7hHIYiwH/zh02yJ",
@@ -74264,7 +74272,11 @@
     },
     "helpBtn": {
       "__id__": 2197
-    }
+    },
+    "gameManager": null,
+    "main": null,
+    "rankManager": null,
+    "previousGameState": null
   },
   {
     "__type__": "cc.Node",
@@ -76477,6 +76489,8 @@
       "__id__": 2005
     },
     "_enabled": true,
+    "gameManager": null,
+    "rankManager": null,
     "titleSprite": {
       "__id__": 2008
     },
