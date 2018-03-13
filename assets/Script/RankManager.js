@@ -125,8 +125,6 @@ cc.Class({
 
     show: function () {
 
-        console.log("RankManager show() called.");
-
         if (this.GameManager.time <= 0) {
             this.startBtn2.node.active = true;
             this.playAgainBtn.node.active = false;
@@ -142,31 +140,24 @@ cc.Class({
         
         this.helpBtn.node.active = false;
 
-        //
-        console.log(this.node.parent.parent.active);
-        
         this.previousGameState = GameState.current;
-        console.log(this.previousGameState);
-        // GameState.current = GameState.rank;
+        GameState.current = GameState.rank;
     },
 
     hide: function () {
-
-        console.log("RankManager hide() called.");
         this.rankBtn.node.active = true;
         this.node.parent.parent.active = false;
         this.startBtn.interactable = true;
         this.helpBtn.node.active = true;
 
-        
-        console.log("this hide");
-        console.log("GameState change to: ");
-        console.log(GameState.current);
-    },
-    // called every frame, uncomment this function to activate update callback
-    update: function (dt) {
-        if (this.node.parent.parent.active) {
-            GameState.current = GameState.rank;
+        if (this.previousGameState != GameState.invalid) {
+            GameState.current = this.previousGameState;
         }
     },
+    // called every frame, uncomment this function to activate update callback
+    // update: function (dt) {
+    //     if (this.node.parent.parent.active) {
+    //         GameState.current = GameState.rank;
+    //     }
+    // },
 });

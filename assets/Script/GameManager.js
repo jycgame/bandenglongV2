@@ -407,37 +407,26 @@ var GameManager = cc.Class({
         if (GameState.current != GameState.title)
             return;
 
-        console.log("Now GameState is");
-        console.log(GameState.current);
-
-        console.log(event.keyCode);
-
         if (event.keyCode == InputConfig.dpadRight) {
             if (GameTitleButton.current == GameTitleButton.startgame) {
                 GameTitleButton.current = GameTitleButton.rank;
-                console.log(GameTitleButton.current);
             }
             else if (GameTitleButton.current == GameTitleButton.rank) {
                 GameTitleButton.current = GameTitleButton.help;
-                console.log(GameTitleButton.current);
             }
             else if (GameTitleButton.current == GameTitleButton.help) {
                 GameTitleButton.current = GameTitleButton.startgame;
-                console.log(GameTitleButton.current);
             }
         }
         else if (event.keyCode == InputConfig.dpadLeft) {
             if (GameTitleButton.current == GameTitleButton.startgame) {
                 GameTitleButton.current = GameTitleButton.help;
-                console.log(GameTitleButton.current);
             }
             else if (GameTitleButton.current == GameTitleButton.rank) {
                 GameTitleButton.current = GameTitleButton.startgame;
-                console.log(GameTitleButton.current);
             }
             else if (GameTitleButton.current == GameTitleButton.help) {
                 GameTitleButton.current = GameTitleButton.rank;
-                console.log(GameTitleButton.current);
             }
         }
         else if (event.keyCode == InputConfig.dpadCenter) {
@@ -716,7 +705,6 @@ var GameManager = cc.Class({
             img = gm.cheerImg;
         }
 
-        console.log("GameManager.showRes function called.");
         gm.GameRes.setup(img, gm.level, gm.score, gm.time, rank, gm.EnermyAttackManager.crayfishNum, gm.EnermyAttackManager.crabNum, gm.EnermyAttackManager.ballNum)
     },
 

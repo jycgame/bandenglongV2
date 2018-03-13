@@ -57,17 +57,9 @@ cc.Class({
         if (GameState.current != GameState.result)
             return;
 
-        console.log("[bandenglong] GameRes onKeyDown!");
-
-        console.log(this.isShow);
-
         if (this.isShow == true) {
 
-            console.log("[onKeyDown]: l59");
-            console.log(event.keyCode);
-
             if (event.keyCode == InputConfig.dpadCenter) {
-                console.log("bandenglong onKeyDown");
                 if (GameResFocusButton.current == GameResFocusButton.rank) {
                     this.rankManager.show();
                 }
@@ -81,35 +73,29 @@ cc.Class({
             else if (event.keyCode == InputConfig.dpadRight) {
                 if (GameResFocusButton.current == GameResFocusButton.rank) {
                     GameResFocusButton.current = GameResFocusButton.playagain;
-                    console.log(GameResFocusButton.current);
                     //TODO: 显示相关的focus图片
 
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.playagain) {
                     
                     GameResFocusButton.current = GameResFocusButton.mainmenu;
-                    console.log(GameResFocusButton.current);
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
                     GameResFocusButton.current = GameResFocusButton.rank;
-                    console.log(GameResFocusButton.current);
                 }
             }
             else if (event.keyCode == InputConfig.dpadLeft) {
                 if (GameResFocusButton.current == GameResFocusButton.rank) {
                     GameResFocusButton.current = GameResFocusButton.mainmenu;
-                    console.log(GameResFocusButton.current);
                     //TODO: 显示相关的focus图片
 
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.playagain) {
                     
                     GameResFocusButton.current = GameResFocusButton.rank;
-                    console.log(GameResFocusButton.current);
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
                     GameResFocusButton.current = GameResFocusButton.playagain;
-                    console.log(GameResFocusButton.current);
                 }
             }
         }
@@ -121,8 +107,6 @@ cc.Class({
 
     // use this for initialization
     setup: function (img, level, score, time,rank, crayfishNum, crabNum, ballNum) {
-
-        console.log("real GameRes.setup called.");
 
         this.titleSprite.spriteFrame = img;
         this.setLabel(this.levelLabel, level);
@@ -151,13 +135,8 @@ cc.Class({
         this.setLabel(this.crabLabel, crabNum);
         this.setLabel(this.ballLabel, ballNum);
 
-        console.log("start to assign isShow.")
-        console.log(this.isShow);
         this.isShow = true;
         GameResFocusButton.current = GameResFocusButton.rank;
-
-        console.log("now the isShow is");
-        console.log(this.isShow);
 
         GameState.current = GameState.result;
     },
