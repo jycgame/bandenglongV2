@@ -209,7 +209,7 @@
       }
     ],
     "_tag": -1,
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 4884
@@ -65324,7 +65324,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button",
+    "_name": "RankButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2005
@@ -65367,7 +65367,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -272,
+      "x": -308,
       "y": -405
     },
     "_skewX": 0,
@@ -74280,7 +74280,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "playAgain",
+    "_name": "PlayAgainButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2005
@@ -76273,7 +76273,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "MainMenu",
+    "_name": "MainMenuButton",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2005
@@ -76316,7 +76316,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 272,
+      "x": 302,
       "y": -405
     },
     "_skewX": 0,
@@ -76515,7 +76515,10 @@
     "ballLabel": {
       "__id__": 2151
     },
-    "isShow": false
+    "isShow": false,
+    "rankButton": null,
+    "playAgainButton": null,
+    "mainMenuButton": null
   },
   {
     "__type__": "cc.Node",

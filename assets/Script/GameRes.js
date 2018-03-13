@@ -45,12 +45,20 @@ cc.Class({
         isShow: {
             default: false,
         },
+
+        rankButton: null,
+        playAgainButton: null,
+        mainMenuButton: null,
     },
 
     onLoad: function () {
         //warning: function "setup" is called before this function
          this.gameManager = cc.find("GameManager").getComponent("GameManager");
          this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
+
+         this.rankButton = cc.find("Canvas/HUD/GameRes/RankButton");
+         this.mainMenuButton = cc.find("Canvas/HUD/GameRes/MainMenuButton");
+         this.playAgainButton = cc.find("Canvas/HUD/GameRes/PlayAgainButton");
     },
 
     processKeyUp: function(event) {
@@ -148,7 +156,24 @@ cc.Class({
     },
 
     // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-
-    // },
+    update: function (dt) {
+        this.rankButton.scaleX = 1;
+        this.rankButton.scaleY = 1;
+        this.playAgainButton.scaleX = 1;
+        this.playAgainButton.scaleY = 1;
+        this.mainMenuButton.scaleX = 1;
+        this.mainMenuButton.scaleY = 1;
+        if (GameResFocusButton.current == GameResFocusButton.rank) {
+            this.rankButton.scaleX = 1.5;
+            this.rankButton.scaleY = 1.5;
+        }
+        else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
+            this.mainMenuButton.scaleX = 1.5;
+            this.mainMenuButton.scaleY = 1.5;
+        }
+        else if (GameResFocusButton.current == GameResFocusButton.playagain) {
+            this.playAgainButton.scaleX = 1.5;
+            this.playAgainButton.scaleY = 1.5;
+        }
+    },
 });
