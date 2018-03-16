@@ -304,8 +304,11 @@ var GameManager = cc.Class({
     rankButton: null,
     helpButton: null,
 
+    dragonBallCanUse: null,
 
     onLoad: function () {
+        this.dragonBallCanUse = false;
+
         this.FinalRank.init();
         cc.director.resume();
 
@@ -447,10 +450,6 @@ var GameManager = cc.Class({
                 this.guide.show();
                 this.main.hide();
             }            
-        }
-        else if (event.keyCode == InputConfig.dpadBack) {
-            console.log("event back received.");
-            cc.game.end();
         }
     },
 

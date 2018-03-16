@@ -2,6 +2,7 @@ var UserDataConnector = require('UserDataConnector');
 var Guide = require('Guide');
 var PlayerInfo = require('PlayerInfo');
 var GameState = require('GameState');
+var InputConfig = require('InputConfig');
 
 cc.Class({
     extends: cc.Component,
@@ -100,8 +101,14 @@ cc.Class({
     },
 
     onKeyUp: function(event) {
-        console.log("当前的状态是：");
-        console.log(GameState.current);
+        if (event.keyCode == InputConfig.back) {
+            cc.game.end();
+        }
+
+        // console.log("当前的状态是：");
+        // console.log(GameState.current);
+        // console.log("按下的键是：");
+        // console.log(event.keyCode);
 
         if (GameState.current == GameState.title) {
             this.gameManager.processKeyUp(event);

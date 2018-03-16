@@ -7,6 +7,7 @@ var InputConfig = {
     dpadUp : cc.KEY.dpadUp,
     dpadDown : cc.KEY.dpadDown,
     dpadCenter : cc.KEY.dpadCenter,
+    back: cc.KEY.back,
 
     //PC输入
     // activeDevice : "PC", 

@@ -106,7 +106,7 @@ cc.Class({
     GameManager: null,
     DataManager: null,
     enermyAttacking: null,
-    enermyNum: null,//¼ÇÂ¼Ê£ÓàµÐÈË¸öÊý£¬°üÀ¨Ã»spawnµÄ¡£
+    enermyNum: null,//ï¿½ï¿½Â¼Ê£ï¿½ï¿½ï¿½ï¿½Ë¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»spawnï¿½Ä¡ï¿½
     finalScore: null,
     subScoreVal: null,
 
@@ -266,7 +266,7 @@ cc.Class({
         this.energyFillNum = parseInt(this.DataManager.bonusEnergyMax / this.DataManager.bonusEnergyFillValue);
         this.GameManager.speed = this.DataManager.bonusInitialSpeed;
         this.hpBar.width = 164;
-        //Éú³É±¬Õ¨¶¯»­
+        //ï¿½ï¿½ï¿½É±ï¿½Õ¨ï¿½ï¿½ï¿½ï¿½
         if (!this.explosionAnim) {
             var explosionNode = cc.instantiate(this.explosionPrefab);
             explosionNode.parent = this.specialGroundNode;
@@ -274,7 +274,7 @@ cc.Class({
             this.explosionAnim = explosionNode.getComponent(cc.Animation);
         }
 
-        //Éú³ÉÁúÖé
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (!this.dragonBallNode) {
             this.dragonBallNode = cc.instantiate(this.dragonBallPrefab);
             //dragonBall = dragonBallNode.getComponent("DragonBall");
@@ -316,7 +316,7 @@ cc.Class({
         this.bonusEffectFinished = false;
         this.originalSpeed = this.GameManager.speed;
         this.GameManager.speed = 0;
-        this.GameManager.headNode.group = "SpecialHead";//ÌáÇ°È¡ÏûÅö×²£¬·ÀÖ¹ÔÚÇÐ»»¹ý³ÌÖÐÅö×²
+        this.GameManager.headNode.group = "SpecialHead";//ï¿½ï¿½Ç°È¡ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
     },
 
     startTimeCount: function () {
@@ -335,6 +335,7 @@ cc.Class({
         if (this.energyFillNum == 0) {
             this.dragonBallNode.children[0].children[0].active = true;
             this.dragonBallNode.on(cc.Node.EventType.TOUCH_END, this.explosion, this);
+            this.GameManager.dragonBallCanUse = true;
 
             if (cc.sys.localStorage.getItem("bonusfirstTime")==1) {
                 this.handNode = this.dragonBallNode.children[3];
@@ -353,6 +354,7 @@ cc.Class({
         this.energyBarNode.height = 0;
         this.energyFillNum = parseInt(this.DataManager.bonusEnergyMax / this.DataManager.bonusEnergyFillValue);
         this.dragonBallNode.off(cc.Node.EventType.TOUCH_END, this.explosion, this);
+        this.GameManager.dragonBallCanUse = false;
         this.dragonBallNode.children[0].children[0].active = false;
 
         if (this.handNode != null) {

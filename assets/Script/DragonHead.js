@@ -184,6 +184,13 @@ cc.Class({
                             self.stunNode.y = 0;
                         }
                         break;
+                    case InputConfig.dpadCenter:
+                        if (self.GameManager.EnermyAttackManager != null) {
+                            if (self.GameManager.dragonBallCanUse) {
+                                self.GameManager.EnermyAttackManager.explosion();
+                            }
+                        }
+                        break;
                 }
             },
         }, self.node);
