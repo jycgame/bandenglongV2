@@ -15,7 +15,7 @@ cc.Class({
 
         getURLParameter: function (name) {
             if (cc.sys.isNative)
-                return "未登录";
+                return "Anonymous";
             else
                 return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
         },
