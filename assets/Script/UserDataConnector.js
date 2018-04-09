@@ -6,7 +6,10 @@ cc.Class({
             //this.dbUrl = "http://101.132.70.210/bandenglong";
 
             //this.dbUrl = "http://101.132.135.78/bandenglong";
-            this.dbUrl = "https://games.jcgroup.com.cn/bandenglong";
+            if (cc.sys.isNative)
+                this.dbUrl = "http://games.jcgroup.com.cn/bandenglong";
+            else
+                this.dbUrl = "https://games.jcgroup.com.cn/bandenglong";
         },
 
         getUserId: function () {
