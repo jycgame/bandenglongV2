@@ -66,7 +66,7 @@ cc.Class({
         
         if (GameState.current != GameState.rank) return;
 
-        if (event.keyCode == InputConfig.dpadRight) {
+        if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
             if (RankManagerButton.current == RankManagerButton.other) {
                 RankManagerButton.current = RankManagerButton.close;
             }
@@ -74,7 +74,7 @@ cc.Class({
                 RankManagerButton.current = RankManagerButton.other;
             }
         }
-        else if (event.keyCode == InputConfig.dpadLeft) {
+        else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
             if (RankManagerButton.current == RankManagerButton.other) {
                 RankManagerButton.current = RankManagerButton.close;
             }

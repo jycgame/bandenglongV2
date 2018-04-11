@@ -417,35 +417,36 @@ var GameManager = cc.Class({
         if (GameState.current != GameState.title)
             return;
 
-        if (event.keyCode == InputConfig.dpadRight) {
+        if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
             if (GameTitleButton.current == GameTitleButton.startgame) {
-                GameTitleButton.current = GameTitleButton.rank;
-            }
-            else if (GameTitleButton.current == GameTitleButton.rank) {
+                // GameTitleButton.current = GameTitleButton.rank;
                 GameTitleButton.current = GameTitleButton.help;
             }
+            // else if (GameTitleButton.current == GameTitleButton.rank) {
+            //     GameTitleButton.current = GameTitleButton.help;
+            // }
             else if (GameTitleButton.current == GameTitleButton.help) {
                 GameTitleButton.current = GameTitleButton.startgame;
             }
         }
-        else if (event.keyCode == InputConfig.dpadLeft) {
+        else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
             if (GameTitleButton.current == GameTitleButton.startgame) {
                 GameTitleButton.current = GameTitleButton.help;
             }
-            else if (GameTitleButton.current == GameTitleButton.rank) {
-                GameTitleButton.current = GameTitleButton.startgame;
-            }
+            // else if (GameTitleButton.current == GameTitleButton.rank) {
+            //     GameTitleButton.current = GameTitleButton.startgame;
+            // }
             else if (GameTitleButton.current == GameTitleButton.help) {
-                GameTitleButton.current = GameTitleButton.rank;
+                GameTitleButton.current = GameTitleButton.startgame;
             }
         }
         else if (event.keyCode == InputConfig.dpadCenter) {
             if (GameTitleButton.current == GameTitleButton.startgame) {
                 this.Main.loadGameScene();
             }
-            else if (GameTitleButton.current == GameTitleButton.rank) {
-                this.rankManager.show();
-            }
+            // else if (GameTitleButton.current == GameTitleButton.rank) {
+            //     this.rankManager.show();
+            // }
             else if (GameTitleButton.current == GameTitleButton.help) {
                 this.guide.show();
                 this.main.hide();

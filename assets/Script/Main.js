@@ -76,7 +76,6 @@ cc.Class({
         // TDAPP.onEvent("click start");
     },
 
-
     hide: function () {
         this.node.active = false;
     },

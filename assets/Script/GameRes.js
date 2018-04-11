@@ -68,39 +68,43 @@ cc.Class({
         if (this.isShow == true) {
 
             if (event.keyCode == InputConfig.dpadCenter) {
-                if (GameResFocusButton.current == GameResFocusButton.rank) {
-                    this.rankManager.show();
-                }
-                else if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                //if (GameResFocusButton.current == GameResFocusButton.rank) {
+                //     this.rankManager.show();
+                // }
+                // else
+                if (GameResFocusButton.current == GameResFocusButton.playagain) {
                     this.gameManager.backToMain();
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
                     this.gameManager.backToMain1();
                 }
             }
-            else if (event.keyCode == InputConfig.dpadRight) {
-                if (GameResFocusButton.current == GameResFocusButton.rank) {
-                    GameResFocusButton.current = GameResFocusButton.playagain;
-                    //TODO: 显示相关的focus图片
+            else if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
+                // if (GameResFocusButton.current == GameResFocusButton.rank) {
+                //     GameResFocusButton.current = GameResFocusButton.playagain;
+                //     //TODO: 显示相关的focus图片
 
-                }
-                else if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                // }
+                // else 
+                if (GameResFocusButton.current == GameResFocusButton.playagain) {
                     
                     GameResFocusButton.current = GameResFocusButton.mainmenu;
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-                    GameResFocusButton.current = GameResFocusButton.rank;
+                    // GameResFocusButton.current = GameResFocusButton.rank;
+                    GameResFocusButton.current = GameResFocusButton.playagain;
                 }
             }
-            else if (event.keyCode == InputConfig.dpadLeft) {
-                if (GameResFocusButton.current == GameResFocusButton.rank) {
-                    GameResFocusButton.current = GameResFocusButton.mainmenu;
-                    //TODO: 显示相关的focus图片
+            else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
+                // if (GameResFocusButton.current == GameResFocusButton.rank) {
+                //     GameResFocusButton.current = GameResFocusButton.mainmenu;
+                //     //TODO: 显示相关的focus图片
 
-                }
-                else if (GameResFocusButton.current == GameResFocusButton.playagain) {
-                    
-                    GameResFocusButton.current = GameResFocusButton.rank;
+                // }
+                // else
+                if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                    //GameResFocusButton.current = GameResFocusButton.rank;
+                    GameResFocusButton.current = GameResFocusButton.mainmenu;
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
                     GameResFocusButton.current = GameResFocusButton.playagain;
@@ -144,8 +148,8 @@ cc.Class({
         this.setLabel(this.ballLabel, ballNum);
 
         this.isShow = true;
-        GameResFocusButton.current = GameResFocusButton.rank;
-
+        // GameResFocusButton.current = GameResFocusButton.rank;
+        GameResFocusButton.current = GameResFocusButton.playagain;
         GameState.current = GameState.result;
     },
 
