@@ -11,16 +11,18 @@ cc.Class({
             this.parent = parent;
             this.pool = new cc.NodePool();
             for (let i = 0; i < this.count; ++i) {
-                let coinAnim = cc.instantiate(coinAnimPrefab); // ´´½¨½Úµã
-                this.pool.put(coinAnim); // Í¨¹ý putInPool ½Ó¿Ú·ÅÈë¶ÔÏó³Ø
+                let coinAnim = cc.instantiate(coinAnimPrefab); // ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½
+                // var coinAnim1 = coinAnim.getComponent(cc.Animation);
+                // coinAnim1.play();
+                this.pool.put(coinAnim); // Í¨ï¿½ï¿½ putInPool ï¿½Ó¿Ú·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             }
         },
 
         create: function () {
             let coinAnim = null;
-            if (this.pool.size() > 0) { // Í¨¹ý size ½Ó¿ÚÅÐ¶Ï¶ÔÏó³ØÖÐÊÇ·ñÓÐ¿ÕÏÐµÄ¶ÔÏó
+            if (this.pool.size() > 0) { // Í¨ï¿½ï¿½ size ï¿½Ó¿ï¿½ï¿½Ð¶Ï¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ð¿ï¿½ï¿½ÐµÄ¶ï¿½ï¿½ï¿½
                 coinAnim = this.pool.get();
-            } else { // Èç¹ûÃ»ÓÐ¿ÕÏÐ¶ÔÏó£¬Ò²¾ÍÊÇ¶ÔÏó³ØÖÐ±¸ÓÃ¶ÔÏó²»¹»Ê±£¬ÎÒÃÇ¾ÍÓÃ cc.instantiate ÖØÐÂ´´½¨
+            } else { // ï¿½ï¿½ï¿½Ã»ï¿½Ð¿ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ã¶ï¿½ï¿½ó²»¹ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ cc.instantiate ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½
                 coinAnim = cc.instantiate(this.coinAnimPrefab);
             }
             coinAnim.parent = this.parent;

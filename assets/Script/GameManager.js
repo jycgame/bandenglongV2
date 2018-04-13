@@ -44,10 +44,10 @@ var GameManager = cc.Class({
         },
 
         HUDNode:
-        {
-            default: null,
-            type: cc.Node,
-        },
+            {
+                default: null,
+                type: cc.Node,
+            },
 
         PlayerInfoNode: {
             default: null,
@@ -60,37 +60,37 @@ var GameManager = cc.Class({
         },
 
         DataManagerNode:
-        {
-            default: null,
-            type: cc.Node,
-        },
+            {
+                default: null,
+                type: cc.Node,
+            },
 
         AudioManagerNode:
-        {
-            default: null,
-            type: cc.Node,
-        },
+            {
+                default: null,
+                type: cc.Node,
+            },
         EnermyAttackManagerNode:
-        {
-            default: null,
-            type: cc.Node,
-        },
+            {
+                default: null,
+                type: cc.Node,
+            },
         RankManager:
-        {
-            default: null,
-            type: RankManager,
-        },
+            {
+                default: null,
+                type: RankManager,
+            },
         gridNode:
-        {
-            default: null,
-            type: cc.Node,
-        },
+            {
+                default: null,
+                type: cc.Node,
+            },
 
         smallCoin:
-        {
-            default: null,
-            type: cc.Prefab,
-        },
+            {
+                default: null,
+                type: cc.Prefab,
+            },
 
         bigCoinPrefab: {
             default: null,
@@ -98,94 +98,94 @@ var GameManager = cc.Class({
         },
 
         trap:
-        {
-            default: null,
-            type: cc.Prefab,
-        },
+            {
+                default: null,
+                type: cc.Prefab,
+            },
         crayfish:
-        {
-            default: null,
-            type: cc.Prefab,
-        },
+            {
+                default: null,
+                type: cc.Prefab,
+            },
         crab:
-        {
-            default: null,
-            type: cc.Prefab,
-        },
+            {
+                default: null,
+                type: cc.Prefab,
+            },
         bun:
-        {
-            default: null,
-            type: cc.Prefab,
-        },
+            {
+                default: null,
+                type: cc.Prefab,
+            },
         bgAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         bgAudio2:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         coinAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         coinAudio2:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         bunAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         bunAudio2:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         wordAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         phraseAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         crabAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
 
         crabAudio2:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
 
         crayfishAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
 
         crayfishAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
 
         crayfishAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+            {
+                default: null,
+                type: cc.AudioSource,
+            },
         cheerImg: {
             default: null,
             type: cc.SpriteFrame
@@ -248,7 +248,7 @@ var GameManager = cc.Class({
         BigCoinScore: {
             default: null,
             type: BigCoinScore,
-        }, 
+        },
         rankManager: null,
         guide: null,
         main: null,
@@ -410,10 +410,51 @@ var GameManager = cc.Class({
         this.startGameButton = cc.find("Canvas/HUD/Main/StartGameButton");
         this.rankButton = cc.find("Canvas/HUD/Main/RankButton");
         this.helpButton = cc.find("Canvas/HUD/Main/GuideButton");
+
+        //找出所有的BoxCollider
+        this.allColliders = []
+        this.collectColliders(cc.find("Canvas/GroundFloor/Back"))
+        this.collectColliders(cc.find("Canvas/GroundFloor/Builds"))
+        this.collectColliders(cc.find("Canvas/GroundFloor/Flowers"))
+        this.collectColliders(cc.find("Canvas/GroundFloor/zhuozi"))
+        this.collectColliders(cc.find("Canvas/GroundFloor/chanyeBuilds"))
+       
+        this.itemParent = cc.find("Canvas/GroundFloor/Golds")
+        this.updateItemColliders()
+        
     },
 
-    processKeyUp: function(event) {
-        console.log(GameState.current);
+    updateItemColliders(){
+        this.itemColliders = []
+        var children = this.itemParent.children;
+        for (var i = 0; i < children.length; ++i) {
+            var child = children[i];
+            var collider = child.getComponent(cc.BoxCollider);
+            if (collider != null) {
+                this.itemColliders.push(collider)
+                collider.enabled = false;
+            }
+        }
+    },
+
+    removeItemCollider(col)
+    {
+        this.itemColliders.remove(col);
+    },
+
+    collectColliders(parent) {
+        var children = parent.children;
+        for (var i = 0; i < children.length; ++i) {
+            var child = children[i]
+            var collider = child.getComponent(cc.BoxCollider)
+            if (collider != null) {
+                this.allColliders.push(collider)
+                collider.enabled = false
+            }
+        }
+    },
+
+    processKeyUp: function (event) {
         if (GameState.current != GameState.title)
             return;
 
@@ -450,7 +491,7 @@ var GameManager = cc.Class({
             else if (GameTitleButton.current == GameTitleButton.help) {
                 this.guide.show();
                 this.main.hide();
-            }            
+            }
         }
     },
 
@@ -488,6 +529,7 @@ var GameManager = cc.Class({
         }
         this.BigCoinScore.show();
         this.bigCoinSpawned = true;
+        this.updateItemColliders()
     },
 
     resetDragon: function () {
@@ -584,6 +626,8 @@ var GameManager = cc.Class({
             this.coinEffectTime = 0;
         }
 
+        this.updateColliders();
+
         //按钮的显示
         this.startGameButton.scaleX = 3;
         this.startGameButton.scaleY = 3;
@@ -632,8 +676,56 @@ var GameManager = cc.Class({
         teleportGateNode.position = node.node.position;
 
         teleportGateNode.parent = this.GoldsNode;
+        this.updateItemColliders()
     },
 
+    updateColliders() {
+        if (!this.EnermyAttackManager.enermyAttacking) 
+        {
+            for(i = 0; i < this.allColliders.length; ++i)
+            {
+                var col = this.allColliders[i];
+                // // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
+                // // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
+                var v1 = col.node.position;
+                var v2 = this.headNode.position;
+                var dist = v1.sub(v2).mag();
+                if(dist <= 300)
+                {
+                    // col.node.color = cc.Color.RED;
+                    col.enabled = true;
+                }
+                else 
+                {
+                    // col.node.color = cc.Color.WHITE;
+                    col.enabled = false;
+                }
+            }
+    
+            for(i = 0; i < this.itemColliders.length; ++i)
+            {
+                var col = this.itemColliders[i];
+                if(col.node!=null &&   col.node.opacity != 0 )
+                {
+                    // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
+                    // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
+                    var v1 = col.node.position;
+                    var v2 = this.headNode.position;
+                    var dist = v1.sub(v2).mag();
+                    if(dist <= 100)
+                    {
+                        // col.node.color = cc.Color.RED;
+                        col.enabled = true;
+                    }
+                    else 
+                    {
+                        // col.node.color = cc.Color.WHITE;
+                        col.enabled = false;
+                    }
+                }
+            }
+        }
+    },
 
     coinEffect: function () {
         var gridNode = this.grid.getNodeFromPosition(this.cameraNode.position);
@@ -775,6 +867,20 @@ var GameManager = cc.Class({
         this.teleportGateSpawned = false;
         this.AudioManager.playBonusStart();
         this.EnermyAttackManager.startAttack();
+        for(i = 0; i < this.allColliders.length; ++i)
+        {
+            var col = this.allColliders[i];
+            col.enabled = false;
+        }
+        for(i = 0; i < this.itemColliders.length; ++i)
+        {
+            var col = this.itemColliders[i];
+            if(col.node!=null &&   col.node.opacity != 0 )
+            {
+                col.enabled = false;
+            }
+        }
+
         this.enermyAttackV2Score = 0;
         this.enermyAttackV2ThreholdIndex++;
         if (this.enermyAttackV2ThreholdIndex >= this.DataManager.triggerBonusScoreList.length)
@@ -844,6 +950,8 @@ var GameManager = cc.Class({
                     this.SYSJwords.push(newItem);
                 if (prefabAndName[1] === "JCWD")
                     this.JCWDwords.push(newItem);
+
+                this.updateItemColliders()
             }
         }.bind(this), spawnTime * 1000);
         this.spawnNodeTimeoutList.push(spawnNodeTimeout);
@@ -1030,84 +1138,6 @@ var GameManager = cc.Class({
         cc.error("getItemToSpawn failed!!!");
         return null;
     },
-
-    //setPhraseBuff: function (phraseType, wordIndex, node) {
-    //    switch (phraseType) {
-    //        case "JCWD":
-    //            if (this.NextJcwdIndex == wordIndex - 1 || (this.NextJcwdIndex == 3 && wordIndex == 0)) {
-    //                this.NextJcwdIndex = wordIndex;
-    //                if (this.NextJcwdIndex == 3) {
-    //                    this.updateScore(this.DataManager.JCWDValue, false);
-    //                    for (var i = 0; i < 4; i++) {
-    //                        this.jcwdUINode.children[i].getComponent(cc.Sprite).spriteFrame = this.jcwdGray[i];
-    //                    }
-    //                    this.phraseAudio.play();
-    //                }
-    //                else {
-    //                    this.jcwdUINode.children[this.NextJcwdIndex].getComponent(cc.Sprite).spriteFrame = this.jcwdColor[this.NextJcwdIndex];
-    //                    this.wordAudio.play();
-    //                }
-
-    //                this.JCWDwords.remove(node);
-    //            }
-    //            else {
-    //                this.NextJcwdIndex = 3;
-    //                this.jcwdIndex = 3;
-    //                for (var i = 0; i < 4; i++) {
-    //                    this.jcwdUINode.children[i].getComponent(cc.Sprite).spriteFrame = this.jcwdGray[i];
-    //                }
-
-    //                for (var i = 0; i < this.JCWDwords.length; i++) {
-    //                    var word = this.JCWDwords[i];
-    //                    if (word != node) {
-    //                        this.spawnNode(word.position, word.parent);
-    //                        this.specialItemNum--;
-    //                        word.destroy();
-    //                    }
-    //                }
-    //                this.JCWDwords = [];
-    //                this.wordAudio.play();
-    //            }
-    //            break;
-    //        case "SYSJ":
-    //            if (this.NextSysjIndex == wordIndex - 1 || (this.NextSysjIndex == 3 && wordIndex == 0)) {
-    //                this.NextSysjIndex = wordIndex;
-    //                if (this.NextSysjIndex == 3) {
-    //                    this.invincibleSYSJ = true;
-    //                    for (var i = 0; i < 4; i++) {
-    //                        this.sysjUINode.children[i].getComponent(cc.Sprite).spriteFrame = this.sysjGray[i];
-    //                    }
-
-    //                    this.phraseAudio.play();
-    //                }
-    //                else {
-    //                    this.wordAudio.play();
-    //                    this.sysjUINode.children[this.NextSysjIndex].getComponent(cc.Sprite).spriteFrame = this.sysjColor[this.NextSysjIndex];
-    //                }
-
-    //                this.SYSJwords.remove(node);
-    //            }
-    //            else {
-    //                this.NextSysjIndex = 3;
-    //                this.sysjIndex = 3;
-    //                for (var i = 0; i < 4; i++) {
-    //                    this.sysjUINode.children[i].getComponent(cc.Sprite).spriteFrame = this.sysjGray[i];
-    //                }
-
-    //                for (var i = 0; i < this.SYSJwords.length; i++) {
-    //                    var word = this.SYSJwords[i];
-    //                    if (word != node) {
-    //                        this.spawnNode(word.position, word.parent);
-    //                        this.specialItemNum--;
-    //                        word.destroy();
-    //                    }
-    //                }
-    //                this.SYSJwords = [];
-    //                this.wordAudio.play();
-    //            }
-    //            break;
-    //    }
-    //},
 });
 
 Array.prototype.remove = function (b) {

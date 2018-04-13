@@ -136,21 +136,11 @@ cc.Class({
     setInputControl: function () {
         var self = this;
 
-        console.log("NOW INPUTCONFIG WILL OUTPUT:");
-        console.log(InputConfig.dpadDown);
-
         // keyboard input
         cc.eventManager.addListener({
             event: cc.EventListener.KEYBOARD,
-
             onKeyPressed: function (keyCode, event) {
-                console.log("[dragon head]: ");
-                console.log(GameState.current);
                 if (GameState.current != GameState.play) return;
-
-                console.log("onKeyPressed dragonHead");
-                console.log(keyCode);
-
                 switch (keyCode) {
                     case cc.KEY.a:
                     case cc.KEY.left:

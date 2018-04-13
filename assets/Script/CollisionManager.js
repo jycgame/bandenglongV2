@@ -18,8 +18,8 @@ cc.Class({
     onLoad: function () {
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        manager.enableDebugDraw = true;
-        manager.enableDrawBoudingBox = true;
+        // manager.enableDebugDraw = true;
+        // manager.enableDrawBoudingBox = true;
 
         console.log("碰撞开启！");
     },
