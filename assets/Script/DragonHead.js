@@ -134,9 +134,6 @@ cc.Class({
     },
 
     onKeyDown: function (event) {
-        console.log("dragonHead检测到键消息");
-        console.log(event.keyCode);
-
         switch (event.keyCode) {
             case cc.KEY.a:
             case cc.KEY.left:
