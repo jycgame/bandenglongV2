@@ -52,7 +52,7 @@ cc.Class({
     onLoad: function () {
         this.GameManager = this.GameManagerNode.getComponent("GameManager");
         this.sprite = this.node.getComponent(cc.Sprite);
-        this.setInputControl();
+        // this.setInputControl();
         this.dir = this.GameManager.initialDir;
         this.stunNode = this.node.children[0];
     },
@@ -133,57 +133,55 @@ cc.Class({
         this.stunNode.y = 0;
     },
 
+    onKeyDown: function (event) {
+        console.log("dragonHead检测到键消息");
+        console.log(event.keyCode);
+
+        switch (event.keyCode) {
+            case cc.KEY.a:
+            case cc.KEY.left:
+            case InputConfig.dpadLeft:
+                if (this.tryTurn(new cc.Vec2(-1, 0))) {
+                    this.sprite.spriteFrame = this.texLeft;
+                    this.stunNode.y = 60;
+                }
+                break;
+            case cc.KEY.d:
+            case cc.KEY.right:
+            case InputConfig.dpadRight:
+                if (this.tryTurn(new cc.Vec2(1, 0))) {
+                    this.sprite.spriteFrame = this.texRight;
+                    this.stunNode.y = 60;
+                }
+                break;
+            case cc.KEY.w:
+            case cc.KEY.up:
+            case InputConfig.dpadUp:
+                if (this.tryTurn(new cc.Vec2(0, 1))) {
+                    this.sprite.spriteFrame = this.texUp;
+                    this.stunNode.y = 0;
+                }
+                break;
+            case cc.KEY.s:
+            case cc.KEY.down:
+            case InputConfig.dpadDown:
+                if (this.tryTurn(new cc.Vec2(0, -1))) {
+                    this.sprite.spriteFrame = this.texDown;
+                    this.stunNode.y = 0;
+                }
+                break;
+            case InputConfig.dpadCenter:
+                if (this.GameManager.EnermyAttackManager != null) {
+                    if (this.GameManager.dragonBallCanUse) {
+                        this.GameManager.EnermyAttackManager.explosion();
+                    }
+                }
+                break;
+        }
+    },
+
     setInputControl: function () {
         var self = this;
-
-        // keyboard input
-        cc.eventManager.addListener({
-            event: cc.EventListener.KEYBOARD,
-            onKeyPressed: function (keyCode, event) {
-                if (GameState.current != GameState.play) return;
-                switch (keyCode) {
-                    case cc.KEY.a:
-                    case cc.KEY.left:
-                    case InputConfig.dpadLeft:
-                        if (self.tryTurn(new cc.Vec2(-1, 0))) {
-                            self.sprite.spriteFrame = self.texLeft;
-                            self.stunNode.y = 60;
-                        }
-                        break;
-                    case cc.KEY.d:
-                    case cc.KEY.right:
-                    case InputConfig.dpadRight:
-                        if (self.tryTurn(new cc.Vec2(1, 0))) {
-                            self.sprite.spriteFrame = self.texRight;
-                            self.stunNode.y = 60;
-                        }
-                        break;
-                    case cc.KEY.w:
-                    case cc.KEY.up:
-                    case InputConfig.dpadUp:
-                        if (self.tryTurn(new cc.Vec2(0, 1))) {
-                            self.sprite.spriteFrame = self.texUp;
-                            self.stunNode.y = 0;
-                        }
-                        break;
-                    case cc.KEY.s:
-                    case cc.KEY.down:
-                    case InputConfig.dpadDown:
-                        if (self.tryTurn(new cc.Vec2(0, -1))) {
-                            self.sprite.spriteFrame = self.texDown;
-                            self.stunNode.y = 0;
-                        }
-                        break;
-                    case InputConfig.dpadCenter:
-                        if (self.GameManager.EnermyAttackManager != null) {
-                            if (self.GameManager.dragonBallCanUse) {
-                                self.GameManager.EnermyAttackManager.explosion();
-                            }
-                        }
-                        break;
-                }
-            },
-        }, self.node);
 
         //touch input
         cc.eventManager.addListener({

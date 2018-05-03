@@ -82,7 +82,9 @@ cc.Class({
 
     onLoad: function() {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         console.log("游戏开始，注册键盘事件");
+
         //当前的游戏状态（记录在哪个画面上)
         //注意：好几个按钮都会直接出发scene重新加载的动作，所以这里不一定被出发的时候不一定画面是在title上
         if (GameState.current == GameState.invalid) 
@@ -96,6 +98,7 @@ cc.Class({
 
     onDestroy: function() {
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+        cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     },
 
     onKeyUp: function(event) {
@@ -120,5 +123,14 @@ cc.Class({
         else if (GameState.current == GameState.rank) {
             this.rankManager.processKeyUp(event);
         }
-    }
+    }, 
+
+    //为了按键的灵活，我们游戏里处理Down消息
+    onKeyDown: function(event) {
+        if (GameState.current == GameState.play) {
+            if (this.gameManager.dragonHead != null) {
+                this.gameManager.dragonHead.onKeyDown(event);
+            }
+        }
+    }, 
 });
