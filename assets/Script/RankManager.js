@@ -54,7 +54,7 @@ cc.Class({
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
         this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
-
+        this.AudioManager = cc.find("AudioManager").getComponent("AudioManager");
         this.closeButton = cc.find("Canvas/RankMask/Rank/CloseButton");
         this.playAgainButton = cc.find("Canvas/RankMask/Rank/PlayAgainButton");
         this.startGameButton = cc.find("Canvas/RankMask/Rank/StartGameButton");
@@ -87,15 +87,18 @@ cc.Class({
             if (RankManagerButton.current == RankManagerButton.other) {
                 if (this.playAgainBtn.node.active) {
                     this.gameManager.backToMain();
+                    this.AudioManager.playBtn();
                 }
                 else {
                     this.hide();
                     this.main.loadGameScene();
+                    this.AudioManager.playBtn();
                 }
             }
             else {
                 if (this.previousGameState != GameState.invalid) {
-                    this.rankManager.hide();        
+                    this.rankManager.hide();    
+                    this.AudioManager.playBtn();    
                 }
             }
         }

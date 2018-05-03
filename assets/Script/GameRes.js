@@ -74,9 +74,11 @@ cc.Class({
                 // else
                 if (GameResFocusButton.current == GameResFocusButton.playagain) {
                     this.gameManager.backToMain();
+                    this.gameManager.AudioManager.playBtn();
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
                     this.gameManager.backToMain1();
+                    this.gameManager.AudioManager.playBtn();
                 }
             }
             else if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {

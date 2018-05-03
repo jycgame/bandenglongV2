@@ -82,7 +82,6 @@ cc.Class({
 
     onLoad: function() {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
-
         console.log("游戏开始，注册键盘事件");
         //当前的游戏状态（记录在哪个画面上)
         //注意：好几个按钮都会直接出发scene重新加载的动作，所以这里不一定被出发的时候不一定画面是在title上

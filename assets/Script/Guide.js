@@ -10,6 +10,7 @@ cc.Class({
 
     onLoad: function() {
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
+        this.AudioManager = cc.find("AudioManager").getComponent("AudioManager");
     },
 
     processKeyUp: function(event) {
@@ -18,6 +19,7 @@ cc.Class({
         if (event.keyCode == InputConfig.dpadCenter) {
             this.main.startGame();
             GameState.current = GameState.play;
+            this.AudioManager.playBtn();
         }
     },
 

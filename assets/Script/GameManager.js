@@ -455,6 +455,7 @@ var GameManager = cc.Class({
     },
 
     processKeyUp: function (event) {
+
         if (GameState.current != GameState.title)
             return;
 
@@ -484,6 +485,7 @@ var GameManager = cc.Class({
         else if (event.keyCode == InputConfig.dpadCenter) {
             if (GameTitleButton.current == GameTitleButton.startgame) {
                 this.Main.loadGameScene();
+                this.AudioManager.playBtn();
             }
             // else if (GameTitleButton.current == GameTitleButton.rank) {
             //     this.rankManager.show();
@@ -491,6 +493,7 @@ var GameManager = cc.Class({
             else if (GameTitleButton.current == GameTitleButton.help) {
                 this.guide.show();
                 this.main.hide();
+                this.AudioManager.playBtn();
             }
         }
     },
