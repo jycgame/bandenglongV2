@@ -49,6 +49,8 @@ cc.Class({
             default: null,
             url: cc.AudioClip,
         },
+
+        btn:cc.AudioClip,
     },
 
     playBigCoin: function () {
@@ -73,5 +75,9 @@ cc.Class({
 
     playHitDragonBall: function () {
         cc.audioEngine.play(this.hitDragonBall);
+    },
+
+    playBtn: function () {
+        cc.audioEngine.play(this.btn);
     },
 });
