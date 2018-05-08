@@ -19,6 +19,10 @@ var InputConfig = {
 
     activeDevice: function() {
         return this.activeDevice;
+    }, 
+
+    needRank: function() {
+        return true;
     }
 
 };

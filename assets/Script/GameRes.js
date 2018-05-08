@@ -67,11 +67,45 @@ cc.Class({
 
         if (this.isShow == true) {
 
+            var needRank = InputConfig.needRank();
+
+            if (needRank != true) {
+
+                if (event.keyCode == InputConfig.dpadCenter) {
+                    if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                        this.gameManager.backToMain();
+                        this.gameManager.AudioManager.playBtn();
+                    }
+                    else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
+                        this.gameManager.backToMain1();
+                        this.gameManager.AudioManager.playBtn();
+                    }
+                }
+                else if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
+                    if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                        
+                        GameResFocusButton.current = GameResFocusButton.mainmenu;
+                    }
+                    else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
+                        GameResFocusButton.current = GameResFocusButton.playagain;
+                    }
+                }
+                else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
+                    if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                        GameResFocusButton.current = GameResFocusButton.mainmenu;
+                    }
+                    else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
+                        GameResFocusButton.current = GameResFocusButton.playagain;
+                    }
+                }
+            }
+        }
+        else {
             if (event.keyCode == InputConfig.dpadCenter) {
-                //if (GameResFocusButton.current == GameResFocusButton.rank) {
-                //     this.rankManager.show();
-                // }
-                // else
+                if (GameResFocusButton.current == GameResFocusButton.rank) {
+                    this.rankManager.show();
+                }
+                else
                 if (GameResFocusButton.current == GameResFocusButton.playagain) {
                     this.gameManager.backToMain();
                     this.gameManager.AudioManager.playBtn();
@@ -82,36 +116,30 @@ cc.Class({
                 }
             }
             else if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
-                // if (GameResFocusButton.current == GameResFocusButton.rank) {
-                //     GameResFocusButton.current = GameResFocusButton.playagain;
-                //     //TODO: 显示相关的focus图片
-
-                // }
-                // else 
+                if (GameResFocusButton.current == GameResFocusButton.rank) {
+                    GameResFocusButton.current = GameResFocusButton.playagain;
+                }
+                else 
                 if (GameResFocusButton.current == GameResFocusButton.playagain) {
-                    
                     GameResFocusButton.current = GameResFocusButton.mainmenu;
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-                    // GameResFocusButton.current = GameResFocusButton.rank;
-                    GameResFocusButton.current = GameResFocusButton.playagain;
+                    GameResFocusButton.current = GameResFocusButton.rank;
                 }
             }
             else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
-                // if (GameResFocusButton.current == GameResFocusButton.rank) {
-                //     GameResFocusButton.current = GameResFocusButton.mainmenu;
-                //     //TODO: 显示相关的focus图片
-
-                // }
-                // else
-                if (GameResFocusButton.current == GameResFocusButton.playagain) {
-                    //GameResFocusButton.current = GameResFocusButton.rank;
+                if (GameResFocusButton.current == GameResFocusButton.rank) {
                     GameResFocusButton.current = GameResFocusButton.mainmenu;
+                }
+                else
+                if (GameResFocusButton.current == GameResFocusButton.playagain) {
+                    GameResFocusButton.current = GameResFocusButton.rank;
                 }
                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
                     GameResFocusButton.current = GameResFocusButton.playagain;
                 }
             }
+            
         }
     },
 
