@@ -511,7 +511,7 @@ var GameManager = cc.Class({
                     GameTitleButton.current = GameTitleButton.startgame;
                 }
                 else if (GameTitleButton.current == GameTitleButton.help) {
-                    GameTitleButton.current = GameTitleButton.startgame;
+                    GameTitleButton.current = GameTitleButton.rank;
                 }
             }
             else if (event.keyCode == InputConfig.dpadCenter) {
