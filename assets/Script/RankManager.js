@@ -132,7 +132,7 @@ cc.Class({
             caller.PlayerRank.setup(name, nickname, highscore, lastrank, rank)
         }
         else 
-            caller.PlayerRank.setup("未登录", "", 0, 0, 0)
+            caller.PlayerRank.setup("未登录", "未登录", 0, 0, 0)
         
     },
 

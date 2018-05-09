@@ -52,9 +52,9 @@ cc.Class({
     },
 
     setName: function (name, nickname) {
-        var userName = name;
-        if (!userName || userName === "")
-            userName = nickname;
+        // var userName = name;
+        // if (!userName || userName === "")
+        var userName = nickname;
         this.node.children[2].getComponent(cc.Label).string = userName;
         this.node.children[2].children[0].getComponent(cc.Label).string = userName;
     },

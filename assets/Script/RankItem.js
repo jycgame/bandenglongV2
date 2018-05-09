@@ -17,8 +17,7 @@ cc.Class({
         },
     },
 
-    setupFinalRank1: function (name, nickname,highscore,rank)
-    {
+    setupFinalRank1: function (name, nickname, highscore, rank) {
         this.setName(name, nickname);
         this.setHighscore(highscore);
         this.setRank(rank);
@@ -30,7 +29,7 @@ cc.Class({
     },
 
     // use this for initialization
-    setup: function (name, nickname, highscore, lastrank,rank) {
+    setup: function (name, nickname, highscore, lastrank, rank) {
         this.setRankDiff(lastrank, rank);
         this.setName(name, nickname);
         this.setHighscore(highscore);
@@ -40,13 +39,11 @@ cc.Class({
         var diff = rank - lastrank;
         var diffSprite = this.node.children[1].children[0].getComponent(cc.Sprite);
         var diffVal = this.node.children[1].children[1].getComponent(cc.Label);
-        if (diff == 0 || lastrank == 0)
-        {
+        if (diff == 0 || lastrank == 0) {
             diffVal.node.active = false;
             diffSprite.spriteFrame = this.drawSprite;
         }
-        else if (diff >= 0)
-        {
+        else if (diff >= 0) {
             diffVal.node.active = true;
             diffVal.string = Math.abs(diff);
             diffSprite.spriteFrame = this.downSprite;
@@ -59,9 +56,9 @@ cc.Class({
     },
 
     setName: function (name, nickname) {
-        var userName = name;
-        if (!userName || userName === "")
-            userName = nickname;
+        // var userName = name;
+        // if (!userName || userName === "")
+        var userName = nickname;
         this.node.children[2].getComponent(cc.Label).string = userName;
         this.node.children[2].children[0].getComponent(cc.Label).string = userName;
     },
@@ -71,10 +68,9 @@ cc.Class({
         this.node.children[3].children[0].getComponent(cc.Label).string = highscore;
     },
 
-    setRank: function (rank)
-    {
+    setRank: function (rank) {
         this.node.children[0].getComponent(cc.Label).string = rank;
         this.node.children[0].children[0].getComponent(cc.Label).string = rank;
     },
-    
+
 });

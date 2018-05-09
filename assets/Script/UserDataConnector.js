@@ -1,7 +1,7 @@
 cc.Class({
     statics: {
         init: function () {
-            this.apiUrl = "https://jcyapi.easybao.com/jcy-api/app/system/getUserMessage";
+            this.apiUrl = "http://jcyapi.easybao.com/jcy-api/app/system/getUserMessage";
             //this.apiUrl = "http://106.14.151.23/jcy-api/app/system/getUserMessage";
             //this.dbUrl = "http://101.132.70.210/bandenglong";
 
@@ -18,7 +18,13 @@ cc.Class({
 
         getURLParameter: function (name) {
             if (cc.sys.isNative)
-                return "Anonymous";
+                if (cc.sys.OS_ANDROID == cc.sys.os) {
+                    var id = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getId", "()Ljava/lang/String;");
+                    console.log("get userid from java:  " + id);
+                    return id;
+                }
+                else
+                    return "Anonymous";
             else
                 return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
         },

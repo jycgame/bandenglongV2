@@ -10,6 +10,7 @@
     "7d3d1e28-187a-48b2-a71b-a2c208db340d",
     "5d1dddd5-d257-4ae0-94b2-f1d54a6d17d9"
   ],
+  "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
   "inlineSpriteFrames": true,
@@ -25,10 +26,13 @@
     "portrait": false,
     "upsideDown": false
   },
-  "packageName": "org.cocos2d.bandenglong",
+  "packageName": "com.jycgame.syyl",
   "privateKey": "",
+  "qqplay": {
+    "orientation": "portrait"
+  },
   "renderMode": "0",
-  "startScene": "cd65164d-0a45-490b-bab9-2aa73e0964c4",
+  "startScene": "2eb3c0be-4b90-4ee5-a25c-93fe4d53f9e0",
   "title": "BanDengLong",
   "webOrientation": "landscape",
   "wechatgame": {
@@ -36,9 +40,5 @@
     "orientation": "portrait"
   },
   "xxteaKey": "20194eaf-2a74-43",
-  "zipCompressJs": true,
-  "qqplay": {
-    "orientation": "portrait"
-  },
-  "fb-instant-games": {}
+  "zipCompressJs": true
 }
