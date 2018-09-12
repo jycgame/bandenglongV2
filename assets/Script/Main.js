@@ -1,8 +1,7 @@
-var UserDataConnector = require('UserDataConnector');
 var Guide = require('Guide');
 var PlayerInfo = require('PlayerInfo');
 var GameState = require('GameState');
-var InputConfig = require('InputConfig');
+import PersistentManager from './PersistentManager';
 
 cc.Class({
     extends: cc.Component,
@@ -30,36 +29,38 @@ cc.Class({
         rankManager: null,
     },
 
-    // use this for initialization
+
     skip: function () {
         //cc.director.resume();
         this.loadGameScene();
     },
 
-    loadGameScene: function ()
-    {
+    loadGameScene: function () {
         this.PlayerInfoNode.active = true;
-        //this.jcwdNode.active = true;
-        //this.sysjNode.active = true;
         var gm = this.GameManagerNode.getComponent("GameManager");
-        var self = this;
-        UserDataConnector.getHighScore(function (highscore) {
-            if (!window.firstTime)
-            {
-                gm.speed = 250;
-                gm.gameStarted = true;
-                gm.inputEnabled = true;
-                gm.highscore = highscore;
-                gm.highscoreLabel.string = highscore;
-                self.PlayerInfo.init();
-                // Talking data isn't available in native app
-                //TDAPP.onEvent("click start");
-            }
-            else 
-            {
-                self.Guide.show();
-            }
-        });
+        gm.speed = 250;
+        gm.gameStarted = true;
+        gm.inputEnabled = true;
+        gm.highscore = PersistentManager.inst.highScore;
+        gm.highscoreLabel.string = PersistentManager.inst.highScore.toString();
+        this.PlayerInfo.init();
+
+        // var self = this;
+        // UserDataConnector.getHighScore(function (highscore) {
+        //     if (!window.firstTime) {
+        //         gm.speed = 250;
+        //         gm.gameStarted = true;
+        //         gm.inputEnabled = true;
+        //         gm.highscore = highscore;
+        //         gm.highscoreLabel.string = highscore;
+        //         self.PlayerInfo.init();
+        //         // Talking data isn't available in native app
+        //         //TDAPP.onEvent("click start");
+        //     }
+        //     else {
+        //         self.Guide.show();
+        //     }
+        // });
 
         this.node.active = false;
         GameState.current = GameState.play;
@@ -80,14 +81,14 @@ cc.Class({
         this.node.active = false;
     },
 
-    onLoad: function() {
+    onLoad: function () {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         console.log("游戏开始，注册键盘事件");
 
         //当前的游戏状态（记录在哪个画面上)
         //注意：好几个按钮都会直接出发scene重新加载的动作，所以这里不一定被出发的时候不一定画面是在title上
-        if (GameState.current == GameState.invalid) 
+        if (GameState.current == GameState.invalid)
             GameState.current = GameState.title;
 
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
@@ -96,41 +97,39 @@ cc.Class({
         this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
     },
 
-    onDestroy: function() {
+    onDestroy: function () {
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
     },
 
-    onKeyUp: function(event) {
-        if (event.keyCode == InputConfig.back) {
-            cc.game.end();
-        }
+    onKeyUp: function (event) {
+        if (!this.gameManager.checkQuit(event)) {
+            // console.log("当前的状态是：");
+            // console.log(GameState.current);
+            // console.log("按下的键是：");
+            // console.log(event.keyCode);
 
-        // console.log("当前的状态是：");
-        // console.log(GameState.current);
-        // console.log("按下的键是：");
-        // console.log(event.keyCode);
-
-        if (GameState.current == GameState.title) {
-            this.gameManager.processKeyUp(event);
+            if (GameState.current == GameState.title) {
+                this.gameManager.processKeyUp(event);
+            }
+            else if (GameState.current == GameState.help) {
+                this.guide.processKeyUp(event);
+            }
+            else if (GameState.current == GameState.result) {
+                this.gameResult.processKeyUp(event);
+            }
+            else if (GameState.current == GameState.rank) {
+                this.rankManager.processKeyUp(event);
+            }
         }
-        else if (GameState.current == GameState.help) {
-            this.guide.processKeyUp(event);
-        }
-        else if (GameState.current == GameState.result) {
-            this.gameResult.processKeyUp(event);
-        }
-        else if (GameState.current == GameState.rank) {
-            this.rankManager.processKeyUp(event);
-        }
-    }, 
+    },
 
     //为了按键的灵活，我们游戏里处理Down消息
-    onKeyDown: function(event) {
+    onKeyDown: function (event) {
         if (GameState.current == GameState.play) {
             if (this.gameManager.dragonHead != null) {
                 this.gameManager.dragonHead.onKeyDown(event);
             }
         }
-    }, 
+    },
 });

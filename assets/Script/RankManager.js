@@ -109,6 +109,10 @@ cc.Class({
             var dataRow = dataList[i].split(",");
             var name = dataRow[1];
             var nickname = dataRow[2];
+            if (nickname.length >= 11) {
+                nickname = nickname.slice(0, nickname.length-4).concat("****");
+            }
+
             var highscore = dataRow[3];
             var lastrank = dataRow[4];
 
@@ -116,13 +120,11 @@ cc.Class({
             rankItem.setup(name, nickname, highscore, lastrank, i + 1);
             //rankListComponent.setItem(i, i + 1 + ".", lastRank, userName, responseHighScore);
         }
-        UserDataConnector.getRank(caller, caller.setRank, null, null);
+        // UserDataConnector.getRank(caller, caller.setRank, null, null);
 
     },
 
     setRank: function (caller, dataRow) {
-        if (window.isEmployee)
-        {
             var dataRow = dataRow.split(",");
             var name = dataRow[1];
             var nickname = dataRow[2];
@@ -130,10 +132,6 @@ cc.Class({
             var lastrank = dataRow[4];
             var rank = dataRow[5];
             caller.PlayerRank.setup(name, nickname, highscore, lastrank, rank)
-        }
-        else 
-            caller.PlayerRank.setup("未登录", "未登录", 0, 0, 0)
-        
     },
 
     show: function () {

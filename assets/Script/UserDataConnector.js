@@ -17,16 +17,7 @@ cc.Class({
         },
 
         getURLParameter: function (name) {
-            if (cc.sys.isNative)
-                if (cc.sys.OS_ANDROID == cc.sys.os) {
-                    var id = jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getId", "()Ljava/lang/String;");
-                    console.log("get userid from java:  " + id);
-                    return id;
-                }
-                else
-                    return "Anonymous";
-            else
-                return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+           
         },
 
         getUserData: function (caller, callback) {

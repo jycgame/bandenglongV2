@@ -14,14 +14,8 @@ cc.Class({
 
     // use this for initialization
     init: function () {
-        if (window.isEmployee) {
-            this.highScoreNode.active = true;
-            this.highScoreSpriteNode.active = true;
-        }
-        else {
-            this.highScoreNode.active = false;
-            this.highScoreSpriteNode.active = false;
-        }
+        this.highScoreNode.active = true;
+        this.highScoreSpriteNode.active = true;
     },
 
     // called every frame, uncomment this function to activate update callback

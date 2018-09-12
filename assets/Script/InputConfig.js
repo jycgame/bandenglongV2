@@ -16,6 +16,7 @@ var InputConfig = {
     // dpadUp : cc.KEY.up,
     // dpadDown : cc.KEY.down,
     // dpadCenter : cc.KEY.enter,
+    // back: cc.KEY.escape,
 
     activeDevice: function() {
         return this.activeDevice;

@@ -3,7 +3,6 @@ var ScoreSoulPool = require('ScoreSoulPool');
 var CoinEffectPool = require('CoinEffectPool');
 var CoinAnimPool = require('CoinAnimPool');
 var NodeStatus = require('NodeStatus');
-var UserDataConnector = require('UserDataConnector');
 var RankManager = require('RankManager');
 var GameRes = require('GameRes');
 var Main = require('Main');
@@ -14,9 +13,12 @@ var InputConfig = require('InputConfig');
 var GameState = require('GameState');
 var GameTitleButton = require('GameTitleButton');
 
+import PersistentManager from './PersistentManager';
+
 var GameManager = cc.Class({
     extends: cc.Component,
     properties: {
+        QuitTipNode: cc.Node,
         coinEffectIntervalMin: 2,
         coinEffectIntervalMax: 5,
         coinEffectNum: 3,
@@ -307,8 +309,9 @@ var GameManager = cc.Class({
     dragonBallCanUse: null,
 
     onLoad: function () {
-        this.dragonBallCanUse = false;
 
+        this.startQuitCount = false;
+        this.dragonBallCanUse = false;
         this.FinalRank.init();
         cc.director.resume();
 
@@ -325,7 +328,6 @@ var GameManager = cc.Class({
             this.bgAudio2.play();
             this.curBGM = this.bgAudio2;
         }
-
 
         this.invincible = false;
         this.invincibleSYSJ = false;
@@ -381,10 +383,10 @@ var GameManager = cc.Class({
         this.coinEffectInterval = this.coinEffectIntervalMin + Math.random() * (this.coinEffectIntervalMax - this.coinEffectIntervalMin);
         this.coinEffectTime = 0;
 
-        UserDataConnector.init();
+        PersistentManager.inst.init();
         if (!window.playAgain) {
-            UserDataConnector.getUserId();
-            UserDataConnector.getUserData(this.RankManager, this.RankManager.setTop5);
+            // UserDataConnector.getUserId();
+            // UserDataConnector.getUserData(this.RankManager, this.RankManager.setTop5);
         }
         else
             this.Main.skip();
@@ -418,13 +420,13 @@ var GameManager = cc.Class({
         this.collectColliders(cc.find("Canvas/GroundFloor/Flowers"))
         this.collectColliders(cc.find("Canvas/GroundFloor/zhuozi"))
         this.collectColliders(cc.find("Canvas/GroundFloor/chanyeBuilds"))
-       
+
         this.itemParent = cc.find("Canvas/GroundFloor/Golds")
         this.updateItemColliders()
-        
+
     },
 
-    updateItemColliders(){
+    updateItemColliders() {
         this.itemColliders = []
         var children = this.itemParent.children;
         for (var i = 0; i < children.length; ++i) {
@@ -437,8 +439,7 @@ var GameManager = cc.Class({
         }
     },
 
-    removeItemCollider(col)
-    {
+    removeItemCollider(col) {
         this.itemColliders.remove(col);
     },
 
@@ -620,7 +621,33 @@ var GameManager = cc.Class({
             coin.destroy();
     },
 
+
+    checkQuit(event)
+    {
+        if (event.keyCode == InputConfig.back && this.startQuitCount) {
+            console.log("Quit Game!");
+            cc.game.end();
+            return true;
+        }
+        else if (event.keyCode == InputConfig.back) {
+            this.startQuitCount = true;
+            this.quitCount = 0;
+            this.QuitTipNode.active = true;
+            return true;
+        }
+        return false;
+    },
+
     update: function (dt) {
+        if (this.startQuitCount) {
+            this.quitCount += dt;
+            if (this.quitCount > 3) {
+                this.QuitTipNode.active = false;
+                this.startQuitCount = false;
+            }
+        }
+
+
         if (this.gameStarted) {
             this.time += dt;
             this.EnermyAttackManager.update1(dt);
@@ -717,45 +744,37 @@ var GameManager = cc.Class({
     },
 
     updateColliders() {
-        if (!this.EnermyAttackManager.enermyAttacking) 
-        {
-            for(i = 0; i < this.allColliders.length; ++i)
-            {
+        if (!this.EnermyAttackManager.enermyAttacking) {
+            for (i = 0; i < this.allColliders.length; ++i) {
                 var col = this.allColliders[i];
                 // // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
                 // // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
                 var v1 = col.node.position;
                 var v2 = this.headNode.position;
                 var dist = v1.sub(v2).mag();
-                if(dist <= 300)
-                {
+                if (dist <= 300) {
                     // col.node.color = cc.Color.RED;
                     col.enabled = true;
                 }
-                else 
-                {
+                else {
                     // col.node.color = cc.Color.WHITE;
                     col.enabled = false;
                 }
             }
-    
-            for(i = 0; i < this.itemColliders.length; ++i)
-            {
+
+            for (i = 0; i < this.itemColliders.length; ++i) {
                 var col = this.itemColliders[i];
-                if(col.node!=null &&   col.node.opacity != 0 )
-                {
+                if (col.node != null && col.node.opacity != 0) {
                     // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
                     // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
                     var v1 = col.node.position;
                     var v2 = this.headNode.position;
                     var dist = v1.sub(v2).mag();
-                    if(dist <= 100)
-                    {
+                    if (dist <= 100) {
                         // col.node.color = cc.Color.RED;
                         col.enabled = true;
                     }
-                    else 
-                    {
+                    else {
                         // col.node.color = cc.Color.WHITE;
                         col.enabled = false;
                     }
@@ -826,9 +845,7 @@ var GameManager = cc.Class({
             clearTimeout(this.EnermyAttackManager.bonusTimeout);
             clearInterval(this.EnermyAttackManager.timeCountInterval);
         }
-
-
-        UserDataConnector.updateLastRank(this.score, this, this.showRes, this.RankManager, this.RankManager.setTop5);
+        this.showRes();
 
         this.curBGM.stop();
         this.speed = 0;
@@ -843,25 +860,22 @@ var GameManager = cc.Class({
         }.bind(this), this.dragon.dieTime * 1000);
     },
 
-    showRes: function (gm, dataRow) {
-        var dataRow = dataRow.split(",");
-        var rank = dataRow[5];
-
+    showRes: function (dataRow) {
         var img = null;
-        if (gm.score > gm.highscore) {
+        if (this.score > this.highscore) {
             //titleResText.text = "胜利";
             //var sceneName = cc.director.getScene().name;
             //cc.sys.localStorage.setItem('highscore' + sceneName.split('_')[1], this.score);
-            //UserDataConnector.uploadHighScore();
             //this.highscoreResLabel.string = this.score;
-            img = gm.newRecImg;
+            PersistentManager.inst.save(this.score);
+            img = this.newRecImg;
         }
         else {
             //this.highscoreResLabel.string = this.highscore;
-            img = gm.cheerImg;
+            img = this.cheerImg;
         }
 
-        gm.GameRes.setup(img, gm.level, gm.score, gm.time, rank, gm.EnermyAttackManager.crayfishNum, gm.EnermyAttackManager.crabNum, gm.EnermyAttackManager.ballNum)
+        this.GameRes.setup(img, this.level, this.score, this.time, 55, this.EnermyAttackManager.crayfishNum, this.EnermyAttackManager.crabNum, this.EnermyAttackManager.ballNum)
     },
 
     restart: function () {
@@ -904,16 +918,13 @@ var GameManager = cc.Class({
         this.teleportGateSpawned = false;
         this.AudioManager.playBonusStart();
         this.EnermyAttackManager.startAttack();
-        for(i = 0; i < this.allColliders.length; ++i)
-        {
+        for (i = 0; i < this.allColliders.length; ++i) {
             var col = this.allColliders[i];
             col.enabled = false;
         }
-        for(i = 0; i < this.itemColliders.length; ++i)
-        {
+        for (i = 0; i < this.itemColliders.length; ++i) {
             var col = this.itemColliders[i];
-            if(col.node!=null &&   col.node.opacity != 0 )
-            {
+            if (col.node != null && col.node.opacity != 0) {
                 col.enabled = false;
             }
         }

@@ -19,26 +19,26 @@ cc.Class({
             type: cc.Prefab,
         },
         texUp:
-        {
-            default: null,
-            type: cc.SpriteFrame,
-        },
+            {
+                default: null,
+                type: cc.SpriteFrame,
+            },
         texDown:
-        {
-            default: null,
-            type: cc.SpriteFrame,
-        },
+            {
+                default: null,
+                type: cc.SpriteFrame,
+            },
         texLeft:
-        {
-            default: null,
-            type: cc.SpriteFrame,
-        },
+            {
+                default: null,
+                type: cc.SpriteFrame,
+            },
         texRight:
-        {
-            default: null,
-            type: cc.SpriteFrame,
-        },
-       
+            {
+                default: null,
+                type: cc.SpriteFrame,
+            },
+
 
         //camera: {
         //    default: null,
@@ -52,7 +52,7 @@ cc.Class({
     onLoad: function () {
         this.GameManager = this.GameManagerNode.getComponent("GameManager");
         this.sprite = this.node.getComponent(cc.Sprite);
-        // this.setInputControl();
+        this.setInputControl();
         this.dir = this.GameManager.initialDir;
         this.stunNode = this.node.children[0];
     },
@@ -134,47 +134,50 @@ cc.Class({
     },
 
     onKeyDown: function (event) {
-        switch (event.keyCode) {
-            case cc.KEY.a:
-            case cc.KEY.left:
-            case InputConfig.dpadLeft:
-                if (this.tryTurn(new cc.Vec2(-1, 0))) {
-                    this.sprite.spriteFrame = this.texLeft;
-                    this.stunNode.y = 60;
-                }
-                break;
-            case cc.KEY.d:
-            case cc.KEY.right:
-            case InputConfig.dpadRight:
-                if (this.tryTurn(new cc.Vec2(1, 0))) {
-                    this.sprite.spriteFrame = this.texRight;
-                    this.stunNode.y = 60;
-                }
-                break;
-            case cc.KEY.w:
-            case cc.KEY.up:
-            case InputConfig.dpadUp:
-                if (this.tryTurn(new cc.Vec2(0, 1))) {
-                    this.sprite.spriteFrame = this.texUp;
-                    this.stunNode.y = 0;
-                }
-                break;
-            case cc.KEY.s:
-            case cc.KEY.down:
-            case InputConfig.dpadDown:
-                if (this.tryTurn(new cc.Vec2(0, -1))) {
-                    this.sprite.spriteFrame = this.texDown;
-                    this.stunNode.y = 0;
-                }
-                break;
-            case InputConfig.dpadCenter:
-                if (this.GameManager.EnermyAttackManager != null) {
-                    if (this.GameManager.dragonBallCanUse) {
-                        this.GameManager.EnermyAttackManager.explosion();
+        if (this.GameManager.inputEnabled) {
+            switch (event.keyCode) {
+                case cc.KEY.a:
+                case cc.KEY.left:
+                case InputConfig.dpadLeft:
+                    if (this.tryTurn(new cc.Vec2(-1, 0))) {
+                        this.sprite.spriteFrame = this.texLeft;
+                        this.stunNode.y = 60;
                     }
-                }
-                break;
+                    break;
+                case cc.KEY.d:
+                case cc.KEY.right:
+                case InputConfig.dpadRight:
+                    if (this.tryTurn(new cc.Vec2(1, 0))) {
+                        this.sprite.spriteFrame = this.texRight;
+                        this.stunNode.y = 60;
+                    }
+                    break;
+                case cc.KEY.w:
+                case cc.KEY.up:
+                case InputConfig.dpadUp:
+                    if (this.tryTurn(new cc.Vec2(0, 1))) {
+                        this.sprite.spriteFrame = this.texUp;
+                        this.stunNode.y = 0;
+                    }
+                    break;
+                case cc.KEY.s:
+                case cc.KEY.down:
+                case InputConfig.dpadDown:
+                    if (this.tryTurn(new cc.Vec2(0, -1))) {
+                        this.sprite.spriteFrame = this.texDown;
+                        this.stunNode.y = 0;
+                    }
+                    break;
+                case InputConfig.dpadCenter:
+                    if (this.GameManager.EnermyAttackManager != null) {
+                        if (this.GameManager.dragonBallCanUse) {
+                            this.GameManager.EnermyAttackManager.explosion();
+                        }
+                    }
+                    break;
+            }
         }
+
     },
 
     setInputControl: function () {
@@ -215,8 +218,7 @@ cc.Class({
 
             //��������
             onTouchesEnded: function (touches, event) {
-                if (self.GameManager.inputEnabled)
-                {
+                if (self.GameManager.inputEnabled) {
                     var touch = touches[0];
                     var loc = touch.getLocation();
                     var start = this.touchStartPoint;
@@ -249,7 +251,7 @@ cc.Class({
                         }
                     }
                 }
-               
+
 
                 //console.log("touch end");
             },

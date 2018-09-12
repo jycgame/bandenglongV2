@@ -400,7 +400,7 @@ cc.Class({
         this.invincibleTimeout = setTimeout(function () {
             this.GameManager.inputEnabled = true;
             this.invincible = false;
-        }.bind(this), 1 * 1000);
+        }.bind(this), 2000);
 
         this.bonusEffect.node.active = true;
         this.bonusEffect.play("bonusEffectReverse");
