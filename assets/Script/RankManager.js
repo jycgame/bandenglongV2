@@ -41,7 +41,6 @@ cc.Class({
 
         gameManager: null,
         main: null,
-        rankManager: null,
         //record the previous state since Rank panel will show during differenct stack
         previousGameState: null,
         closeButton: null,
@@ -53,55 +52,16 @@ cc.Class({
 
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
-        this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
         this.AudioManager = cc.find("AudioManager").getComponent("AudioManager");
         this.closeButton = cc.find("Canvas/RankMask/Rank/CloseButton");
         this.playAgainButton = cc.find("Canvas/RankMask/Rank/PlayAgainButton");
         this.startGameButton = cc.find("Canvas/RankMask/Rank/StartGameButton");
 
-        RankManagerButton.current = RankManagerButton.other;
     },
 
     processKeyUp: function(event) {
         
-        if (GameState.current != GameState.rank) return;
-
-        if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
-            if (RankManagerButton.current == RankManagerButton.other) {
-                RankManagerButton.current = RankManagerButton.close;
-            }
-            else {
-                RankManagerButton.current = RankManagerButton.other;
-            }
-        }
-        else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
-            if (RankManagerButton.current == RankManagerButton.other) {
-                RankManagerButton.current = RankManagerButton.close;
-            }
-            else {
-                RankManagerButton.current = RankManagerButton.other;
-            }
-        }
-        else if (event.keyCode == InputConfig.dpadCenter) {
-
-            if (RankManagerButton.current == RankManagerButton.other) {
-                if (this.playAgainBtn.node.active) {
-                    this.gameManager.backToMain();
-                    this.AudioManager.playBtn();
-                }
-                else {
-                    this.hide();
-                    this.main.loadGameScene();
-                    this.AudioManager.playBtn();
-                }
-            }
-            else {
-                if (this.previousGameState != GameState.invalid) {
-                    this.rankManager.hide();    
-                    this.AudioManager.playBtn();    
-                }
-            }
-        }
+       
     },
 
     setTop5: function (caller, dataList) {

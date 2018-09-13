@@ -23,7 +23,7 @@ export default class WeChat {
                     },
                     method: 'POST',
                     success: (res) => {
-                        let data = {playerId:res.data.openid,highScore:Number(res.data.highScore)};
+                        let data = { playerId: res.data.openid, highScore: Number(res.data.highScore) };
                         callback(data);
                     }
                 });
@@ -33,7 +33,12 @@ export default class WeChat {
         });
     }
 
-    public save (playerId, score, callback = () => { }) {
+    public save(playerId, score, callback = () => { }) {
+        wx.postMessage({
+            messageType: 1,
+            score: this.score
+        });
+
         wx.request({
             url: WeChat.baseUrl + "save.php",
             data: {
@@ -48,6 +53,12 @@ export default class WeChat {
                 console.log("save successfull!");
                 callback();
             }
+        });
+    }
+
+    public refreshLeaderBoard() {
+        wx.postMessage({
+            messageType: 0,
         });
     }
 }

@@ -28,7 +28,6 @@ cc.Class({
             if (this.timePassed > this.delay) {
                 this.node.opacity = 255;
                 this.anim.play();
-                this.AudioManager.playFirework();
                 this.played = true;
             }
         }

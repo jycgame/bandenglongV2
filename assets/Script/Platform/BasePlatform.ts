@@ -12,7 +12,12 @@ export default class BasePlatform {
         callback({ playerId: "unkown", highScore: 0 });
     }
 
-    public save (playerId, score, callback = () => { }) {
-        
+    public save(playerId, score, callback = () => { }) {
+
+    }
+
+    public refreshLeaderBoard() {
+
     }
 }
+

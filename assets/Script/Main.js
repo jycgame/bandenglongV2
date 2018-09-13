@@ -26,7 +26,6 @@ cc.Class({
         gameManager: null,
         guide: null,
         gameResult: null,
-        rankManager: null,
     },
 
 
@@ -94,7 +93,6 @@ cc.Class({
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
         this.guide = cc.find("Canvas/HUD/Guid").getComponent("Guide");
         this.gameResult = cc.find("Canvas/HUD/GameRes").getComponent("GameRes");
-        this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
     },
 
     onDestroy: function () {
@@ -119,7 +117,6 @@ cc.Class({
                 this.gameResult.processKeyUp(event);
             }
             else if (GameState.current == GameState.rank) {
-                this.rankManager.processKeyUp(event);
             }
         }
     },

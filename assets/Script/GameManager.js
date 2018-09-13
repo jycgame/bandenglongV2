@@ -3,12 +3,10 @@ var ScoreSoulPool = require('ScoreSoulPool');
 var CoinEffectPool = require('CoinEffectPool');
 var CoinAnimPool = require('CoinAnimPool');
 var NodeStatus = require('NodeStatus');
-var RankManager = require('RankManager');
 var GameRes = require('GameRes');
 var Main = require('Main');
 var BigCoinScore = require('BigCoinScore');
 var BuffControl = require('BuffControl');
-var FinalRank = require('FinalRank');
 var InputConfig = require('InputConfig');
 var GameState = require('GameState');
 var GameTitleButton = require('GameTitleButton');
@@ -30,11 +28,7 @@ var GameManager = cc.Class({
         initialDir: new cc.Vec2(0, 1),
         dragonBodyGap: 100,
         bigCoinThrehold: 5,
-
-        FinalRank: {
-            default: null,
-            type: FinalRank,
-        },
+        
         BuffControl: {
             default: null,
             type: BuffControl,
@@ -76,11 +70,6 @@ var GameManager = cc.Class({
             {
                 default: null,
                 type: cc.Node,
-            },
-        RankManager:
-            {
-                default: null,
-                type: RankManager,
             },
         gridNode:
             {
@@ -251,7 +240,6 @@ var GameManager = cc.Class({
             default: null,
             type: BigCoinScore,
         },
-        rankManager: null,
         guide: null,
         main: null,
     },
@@ -309,10 +297,8 @@ var GameManager = cc.Class({
     dragonBallCanUse: null,
 
     onLoad: function () {
-
         this.startQuitCount = false;
         this.dragonBallCanUse = false;
-        this.FinalRank.init();
         cc.director.resume();
 
         if (!window.playAgain) {
@@ -363,7 +349,6 @@ var GameManager = cc.Class({
         this.spawnNodeTimeoutList = [];
         this.curBodyLength = 1;
         this.curSpeedUpDataIndex = 0;
-        var sceneName = cc.director.getScene().name;
 
         this.score = 0;
         this.speedUpScore = 0;
@@ -383,14 +368,13 @@ var GameManager = cc.Class({
         this.coinEffectInterval = this.coinEffectIntervalMin + Math.random() * (this.coinEffectIntervalMax - this.coinEffectIntervalMin);
         this.coinEffectTime = 0;
 
+
         PersistentManager.inst.init();
         if (!window.playAgain) {
             // UserDataConnector.getUserId();
-            // UserDataConnector.getUserData(this.RankManager, this.RankManager.setTop5);
         }
         else
             this.Main.skip();
-
         CoinAnimPool.init(this.coinAnimPrefab, 20, this.paibianNode);
         this.teleportGateSpawned = false;
         this.bigCoinRoad = []
@@ -404,7 +388,6 @@ var GameManager = cc.Class({
 
         //初始化画面是title的时候的第一个button焦点
         GameTitleButton.current = GameTitleButton.startgame;
-        this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
         this.main = cc.find("Canvas/HUD/Main").getComponent("Main");
         this.guide = cc.find("Canvas/HUD/Guid").getComponent("Guide");
 
@@ -412,7 +395,6 @@ var GameManager = cc.Class({
         this.startGameButton = cc.find("Canvas/HUD/Main/StartGameButton");
         this.rankButton = cc.find("Canvas/HUD/Main/RankButton");
         this.helpButton = cc.find("Canvas/HUD/Main/GuideButton");
-
         //找出所有的BoxCollider
         this.allColliders = []
         this.collectColliders(cc.find("Canvas/GroundFloor/Back"))
@@ -521,7 +503,6 @@ var GameManager = cc.Class({
                     this.AudioManager.playBtn();
                 }
                 else if (GameTitleButton.current == GameTitleButton.rank) {
-                    this.rankManager.show();
                 }
                 else if (GameTitleButton.current == GameTitleButton.help) {
                     this.guide.show();
@@ -823,7 +804,6 @@ var GameManager = cc.Class({
         window.firstTime = false;
         window.playAgain = true;
         cc.director.loadScene("Level_1");
-
         GameState.current = GameState.play;
     },
 
@@ -868,6 +848,7 @@ var GameManager = cc.Class({
             //cc.sys.localStorage.setItem('highscore' + sceneName.split('_')[1], this.score);
             //this.highscoreResLabel.string = this.score;
             PersistentManager.inst.save(this.score);
+
             img = this.newRecImg;
         }
         else {

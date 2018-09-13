@@ -7,7 +7,6 @@
     "a1614a46-57e4-48af-b533-7a5d4b3e36f0",
     "64beba8f-b0c7-474a-8dec-5c5735618f89",
     "f488c8a8-42aa-4531-9b6d-7f622cfc54f4",
-    "7d3d1e28-187a-48b2-a71b-a2c208db340d",
     "5d1dddd5-d257-4ae0-94b2-f1d54a6d17d9",
     "2eb3c0be-4b90-4ee5-a25c-93fe4d53f9e0"
   ],
@@ -37,8 +36,10 @@
   "title": "BanDengLong",
   "webOrientation": "landscape",
   "wechatgame": {
+    "REMOTE_SERVER_ROOT": "http://192.168.0.104:8080",
     "appid": "wx43b8f1a4c87a9f1f",
-    "orientation": "landscape"
+    "orientation": "landscape",
+    "subContext": "bandenglongSub"
   },
   "xxteaKey": "20194eaf-2a74-43",
   "zipCompressJs": true

@@ -7,7 +7,6 @@ cc.Class({
 
     properties: {
         gameManager: null,
-        rankManager: null,
 
         titleSprite: {
             default: null,
@@ -54,7 +53,6 @@ cc.Class({
     onLoad: function () {
         //warning: function "setup" is called before this function
         this.gameManager = cc.find("GameManager").getComponent("GameManager");
-        this.rankManager = cc.find("Canvas/RankMask/Rank/RankList").getComponent("RankManager");
 
         this.rankButton = cc.find("Canvas/HUD/GameRes/RankButton");
         this.mainMenuButton = cc.find("Canvas/HUD/GameRes/MainMenuButton");
@@ -102,7 +100,6 @@ cc.Class({
             else {
                 if (event.keyCode == InputConfig.dpadCenter) {
                     if (GameResFocusButton.current == GameResFocusButton.rank) {
-                        this.rankManager.show();
                     }
                     else
                         if (GameResFocusButton.current == GameResFocusButton.playagain) {

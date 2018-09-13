@@ -31,11 +31,6 @@ cc.Class({
             url: cc.AudioClip,
         },
 
-        firework: {
-            default: null,
-            url: cc.AudioClip,
-        },
-
         teleportGate: {
             default: null,
             url: cc.AudioClip,
@@ -59,10 +54,6 @@ cc.Class({
 
     playGoDie: function () {
         cc.audioEngine.play(this.godie);
-    },
-
-    playFirework: function () {
-        cc.audioEngine.play(this.firework);
     },
 
     playTeleportGate: function () {
