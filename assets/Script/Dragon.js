@@ -30,7 +30,7 @@ cc.Class({
     die: function () {
         this.dieAnim.play();
         this.stunEffect.play();
-        this.AudioManager.loseAudio.play();
+        this.AudioManager.playLose();
         setTimeout(function () {
             //this.node.destroy();
             this.node.active = false;

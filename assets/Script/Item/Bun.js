@@ -23,9 +23,9 @@ cc.Class({
 
             var n = Math.random();
             if (n <= 0.5)
-                this.GameManager.bunAudio1.play();
+                cc.audioEngine.play(this.GameManager.bunAudio1);
             else
-                this.GameManager.bunAudio2.play();
+                cc.audioEngine.play(this.GameManager.bunAudio2);
 
             this.GameManager.specialItemNum--;
             this.GameManager.setBunBuff();

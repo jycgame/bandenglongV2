@@ -36,7 +36,7 @@
   "title": "BanDengLong",
   "webOrientation": "landscape",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "http://192.168.0.104:8080",
+    "REMOTE_SERVER_ROOT": "https://zouzhifeng.xyz/dragon",
     "appid": "wx43b8f1a4c87a9f1f",
     "orientation": "landscape",
     "subContext": "bandenglongSub"

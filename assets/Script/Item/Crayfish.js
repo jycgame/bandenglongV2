@@ -20,7 +20,7 @@ cc.Class({
 
     onCollisionEnter: function (other, self) {
         if (other.node.name === "Head") {
-            this.GameManager.crayfishAudio.play();
+            cc.audioEngine.play(this.GameManager.crayfishAudio);
 
             this.GameManager.specialItemNum--;
             this.GameManager.setCrayfishBuff();

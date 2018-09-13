@@ -102,70 +102,15 @@ var GameManager = cc.Class({
             default: null,
             type: cc.Prefab,
         },
-        bgAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-        coinAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-        coinAudio2:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-        bunAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-        bunAudio2:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-        wordAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-        phraseAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-        crabAudio1:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-
-        crabAudio2:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-
-        crayfishAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-
-        crayfishAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
-
-        crayfishAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+        bgAudio1: cc.AudioClip,
+        coinAudio1: cc.AudioClip,
+        coinAudio2: cc.AudioClip,
+        bunAudio1: cc.AudioClip,
+        bunAudio2: cc.AudioClip,
+        crabAudio1: cc.AudioClip,
+        crabAudio2: cc.AudioClip,
+        crayfishAudio: cc.AudioClip,
+      
         newRecImg: {
             default: null,
             type: cc.SpriteFrame
@@ -255,7 +200,6 @@ var GameManager = cc.Class({
     speedUpScore: null,
     curSpeedUpDataIndex: null,
     gird: null,
-    curBGM: null,
     bRecoverCrabBuff: null,
     recoverCrabBuffTime: null,
     recoverCrabBuffFactor: null,
@@ -272,19 +216,7 @@ var GameManager = cc.Class({
         this.dragonBallCanUse = false;
         cc.director.resume();
 
-        // if (!window.playAgain) {
-        //     this.bgAudio1.play();
-        //     this.curBGM = this.bgAudio1;
-        //     this.bgAudioTimeout = setTimeout(function () {
-        //         this.bgAudio1.stop();
-        //         this.bgAudio2.play();
-        //         this.curBGM = this.bgAudio2;
-        //     }.bind(this), this.bgAudio1.getDuration() * 1000);
-        // }
-        // else {
-            this.bgAudio1.play();
-            this.curBGM = this.bgAudio2;
-        // }
+        this.bgId = cc.audioEngine.play(this.bgAudio1, true)
 
         this.invincible = false;
         this.invincibleSYSJ = false;
@@ -733,10 +665,6 @@ var GameManager = cc.Class({
         //cc.log(gridNode.x + "--" + gridNode.y);
     },
 
-    test() {
-        cc.director.loadScene("Level_1");
-    },
-
     backToMain: function () {
         window.firstTime = false;
         window.playAgain = true;
@@ -757,8 +685,7 @@ var GameManager = cc.Class({
         this.inputEnabled = false;
 
         this.showRes();
-
-        this.curBGM.stop();
+        cc.audioEngine.stop(this.bgId);
         this.speed = 0;
         this.bRecoverCrabBuff = false;
         this.PlayerInfoNode.active = false;
@@ -838,7 +765,7 @@ var GameManager = cc.Class({
     checkBodyLength: function () {
         for (var i = this.curBodyLength - 1; i < this.DataManager.bodyLengthScores.length; i++) {
             if (this.speedUpScore >= this.DataManager.bodyLengthScores[i]) {
-                this.AudioManager.cheerAudio.play();
+                this.AudioManager.playCheer();
                 this.dragonHead.grow();
                 this.curBodyLength++;
             }

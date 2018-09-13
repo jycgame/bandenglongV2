@@ -23,9 +23,9 @@ cc.Class({
 
             var n = Math.random();
             if (n <= 0.5)
-                this.GameManager.crabAudio1.play();
+                cc.audioEngine.play(this.GameManager.crabAudio1);
             else
-                this.GameManager.crabAudio2.play();
+                cc.audioEngine.play(this.GameManager.crabAudio2);
             this.GameManager.specialItemNum--;
             this.GameManager.setCrabBuff();
             this.node.destroy();
