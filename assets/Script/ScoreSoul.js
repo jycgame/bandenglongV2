@@ -24,12 +24,4 @@ cc.Class({
             ScoreSoulPool.destroy(this.node);
         }
     },
-
-    //onCollisionEnter: function (other, self) {
-    //    if (other.node.group === "DragonBall") {
-    //        //this.EnermyAttackManager.fillEnergy();
-    //        //this.EnermyAttackManager.energySoulList.remove(this.node);
-    //        EnergySoulPool.destroy(this.node);
-    //    }
-    //},
 });

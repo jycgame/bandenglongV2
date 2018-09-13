@@ -11,10 +11,7 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
-        EnermyAttackManagerNode: {
-            default: null,
-            type: cc.Node,
-        },
+
     },
 
     onLoad: function () {
@@ -22,11 +19,10 @@ cc.Class({
             this.GameManager = this.GameManagerNode.getComponent("GameManager");
         if (this.DataManagerNode)
             this.DataManager = this.DataManagerNode.getComponent("DataManager");
-        this.EnermyAttackManager = this.EnermyAttackManagerNode.getComponent("EnermyAttackManager");
     },
 
     onCollisionEnter: function (other, self) {
-        if (other.node.name === "Head" && !this.EnermyAttackManager.invincible) {
+        if (other.node.name === "Head") {
             this.GameManager.gameOver();
         }
     },

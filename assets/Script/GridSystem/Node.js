@@ -9,8 +9,8 @@ cc.Class({
 
     x: null,
     y: null,
-    gCost: null,//ÀëÆðµãµÄ¾àÀë
-    hCost: null, //ÀëÖÕµãµÄ¾àÀë
+    gCost: null,//ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+    hCost: null, //ï¿½ï¿½ï¿½Õµï¿½Ä¾ï¿½ï¿½ï¿½
     parent1: null,
     nodeStatus: null,
     itemNode:null,
@@ -20,12 +20,6 @@ cc.Class({
         this.hCost = 0;
         //this.nodeStatus = NodeStatus.NORMAL;
     },
-
-    //onCollisionEnter: function (other, self) {
-    //    this.nodeStatus = NodeStatus.OCCUPIED;
-    //    this.node.color = new cc.Color(255, 0, 0);
-    //    this.node.getComponent(cc.BoxCollider).destroy();
-    //},
 
     fCost: function ()
     {

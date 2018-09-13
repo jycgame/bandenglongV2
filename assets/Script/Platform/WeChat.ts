@@ -36,7 +36,7 @@ export default class WeChat {
     public save(playerId, score, callback = () => { }) {
         wx.postMessage({
             messageType: 1,
-            score: this.score
+            score: score
         });
 
         wx.request({

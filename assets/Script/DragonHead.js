@@ -9,11 +9,6 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
-
-        EnermyAttackManagerNode: {
-            default: null,
-            type: cc.Node,
-        },
         bodyPrefab: {
             default: null,
             type: cc.Prefab,
@@ -104,7 +99,6 @@ cc.Class({
         newDragonBody.hasTarget = DragonTail.hasTarget;
         newDragonBody.bGrowthSpawn = true;
         newDragonBody.GameManagerNode = this.GameManagerNode;
-        newDragonBody.EnermyAttackManagerNode = this.EnermyAttackManagerNode;
 
         newBodyNode.parent = this.node.parent;
         newBodyNode.setSiblingIndex(bodyCount - 1);
@@ -169,11 +163,7 @@ cc.Class({
                     }
                     break;
                 case InputConfig.dpadCenter:
-                    if (this.GameManager.EnermyAttackManager != null) {
-                        if (this.GameManager.dragonBallCanUse) {
-                            this.GameManager.EnermyAttackManager.explosion();
-                        }
-                    }
+                   
                     break;
             }
         }

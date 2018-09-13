@@ -1,4 +1,3 @@
-var EnergySoulPool = require('EnergySoulPool');
 var ScoreSoulPool = require('ScoreSoulPool');
 var CoinEffectPool = require('CoinEffectPool');
 var CoinAnimPool = require('CoinAnimPool');
@@ -28,7 +27,7 @@ var GameManager = cc.Class({
         initialDir: new cc.Vec2(0, 1),
         dragonBodyGap: 100,
         bigCoinThrehold: 5,
-        
+
         BuffControl: {
             default: null,
             type: BuffControl,
@@ -40,10 +39,10 @@ var GameManager = cc.Class({
         },
 
         HUDNode:
-            {
-                default: null,
-                type: cc.Node,
-            },
+        {
+            default: null,
+            type: cc.Node,
+        },
 
         PlayerInfoNode: {
             default: null,
@@ -56,32 +55,27 @@ var GameManager = cc.Class({
         },
 
         DataManagerNode:
-            {
-                default: null,
-                type: cc.Node,
-            },
+        {
+            default: null,
+            type: cc.Node,
+        },
 
         AudioManagerNode:
-            {
-                default: null,
-                type: cc.Node,
-            },
-        EnermyAttackManagerNode:
-            {
-                default: null,
-                type: cc.Node,
-            },
+        {
+            default: null,
+            type: cc.Node,
+        },
         gridNode:
-            {
-                default: null,
-                type: cc.Node,
-            },
+        {
+            default: null,
+            type: cc.Node,
+        },
 
         smallCoin:
-            {
-                default: null,
-                type: cc.Prefab,
-            },
+        {
+            default: null,
+            type: cc.Prefab,
+        },
 
         bigCoinPrefab: {
             default: null,
@@ -89,99 +83,89 @@ var GameManager = cc.Class({
         },
 
         trap:
-            {
-                default: null,
-                type: cc.Prefab,
-            },
-        crayfish:
-            {
-                default: null,
-                type: cc.Prefab,
-            },
-        crab:
-            {
-                default: null,
-                type: cc.Prefab,
-            },
-        bun:
-            {
-                default: null,
-                type: cc.Prefab,
-            },
-        bgAudio1:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        bgAudio2:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        coinAudio1:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        coinAudio2:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        bunAudio1:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        bunAudio2:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        wordAudio:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        phraseAudio:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        crabAudio1:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-
-        crabAudio2:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-
-        crayfishAudio:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-
-        crayfishAudio:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-
-        crayfishAudio:
-            {
-                default: null,
-                type: cc.AudioSource,
-            },
-        cheerImg: {
+        {
             default: null,
-            type: cc.SpriteFrame
+            type: cc.Prefab,
+        },
+        crayfish:
+        {
+            default: null,
+            type: cc.Prefab,
+        },
+        crab:
+        {
+            default: null,
+            type: cc.Prefab,
+        },
+        bun:
+        {
+            default: null,
+            type: cc.Prefab,
+        },
+        bgAudio1:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+        coinAudio1:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+        coinAudio2:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+        bunAudio1:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+        bunAudio2:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+        wordAudio:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+        phraseAudio:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+        crabAudio1:
+        {
+            default: null,
+            type: cc.AudioSource,
         },
 
+        crabAudio2:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+
+        crayfishAudio:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+
+        crayfishAudio:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
+
+        crayfishAudio:
+        {
+            default: null,
+            type: cc.AudioSource,
+        },
         newRecImg: {
             default: null,
             type: cc.SpriteFrame
@@ -196,11 +180,6 @@ var GameManager = cc.Class({
             default: null,
             type: cc.Node,
         },
-        energySoulPrefab: {
-            default: null,
-            type: cc.Prefab,
-        },
-
         scoreSoulPrefab: {
             default: null,
             type: cc.Prefab,
@@ -226,10 +205,6 @@ var GameManager = cc.Class({
             type: Main,
         },
 
-        teleportGatePrefab: {
-            default: null,
-            type: cc.Prefab,
-        },
 
         paibianNode: {
             default: null,
@@ -260,7 +235,7 @@ var GameManager = cc.Class({
     crabTimeout: null,
     spawnNodeTimeoutList: null,
     crayfishTimeout: null,
-    bgAudioTimeout: null,
+    // bgAudioTimeout: null,
 
 
     trapNum: null,
@@ -279,12 +254,8 @@ var GameManager = cc.Class({
     newSpriteNode: null,
     speedUpScore: null,
     curSpeedUpDataIndex: null,
-    enermyAttackScore: null,
-    enermyAttackV2Score: null,
     gird: null,
-    EnermyAttackManager: null,
     curBGM: null,
-    enermyAttackV2ThreholdIndex: null,
     bRecoverCrabBuff: null,
     recoverCrabBuffTime: null,
     recoverCrabBuffFactor: null,
@@ -301,19 +272,19 @@ var GameManager = cc.Class({
         this.dragonBallCanUse = false;
         cc.director.resume();
 
-        if (!window.playAgain) {
+        // if (!window.playAgain) {
+        //     this.bgAudio1.play();
+        //     this.curBGM = this.bgAudio1;
+        //     this.bgAudioTimeout = setTimeout(function () {
+        //         this.bgAudio1.stop();
+        //         this.bgAudio2.play();
+        //         this.curBGM = this.bgAudio2;
+        //     }.bind(this), this.bgAudio1.getDuration() * 1000);
+        // }
+        // else {
             this.bgAudio1.play();
-            this.curBGM = this.bgAudio1;
-            this.bgAudioTimeout = setTimeout(function () {
-                this.bgAudio1.stop();
-                this.bgAudio2.play();
-                this.curBGM = this.bgAudio2;
-            }.bind(this), this.bgAudio1.getDuration() * 1000);
-        }
-        else {
-            this.bgAudio2.play();
             this.curBGM = this.bgAudio2;
-        }
+        // }
 
         this.invincible = false;
         this.invincibleSYSJ = false;
@@ -331,7 +302,6 @@ var GameManager = cc.Class({
         this.dragonHead = this.headNode.getComponent("DragonHead")
         this.dragon = this.dragonNode.getComponent("Dragon");
         this.grid = this.gridNode.getComponent("Grid");
-        this.EnermyAttackManager = this.EnermyAttackManagerNode.getComponent("EnermyAttackManager");
 
         this.time = 0;
         this.trapNum = 0;
@@ -352,16 +322,12 @@ var GameManager = cc.Class({
 
         this.score = 0;
         this.speedUpScore = 0;
-        this.enermyAttackScore = 0;
-        this.enermyAttackV2Score = 0;
 
-        this.enermyAttackV2ThreholdIndex = 0;
         this.gameStarted = false;
         this.inputEnabled = false;
 
         this.initCoinPool();
 
-        EnergySoulPool.init(this.energySoulPrefab);
         ScoreSoulPool.init(this.scoreSoulPrefab, this.HUDNode)
 
         CoinEffectPool.init(this.coinEffectPrefab, this.coinEffectNum);
@@ -603,8 +569,7 @@ var GameManager = cc.Class({
     },
 
 
-    checkQuit(event)
-    {
+    checkQuit(event) {
         if (event.keyCode == InputConfig.back && this.startQuitCount) {
             console.log("Quit Game!");
             cc.game.end();
@@ -631,7 +596,6 @@ var GameManager = cc.Class({
 
         if (this.gameStarted) {
             this.time += dt;
-            this.EnermyAttackManager.update1(dt);
             for (var i = 0; i < this.dragonNode.childrenCount; i++) {
                 if (i == 0)
                     this.dragonNode.children[i].getComponent("DragonHead").update1(dt);
@@ -694,71 +658,40 @@ var GameManager = cc.Class({
         }
     },
 
-    spawnTeleportGate: function () {
-        var gridNode = this.grid.getNodeFromPosition(this.cameraNode.position);
-        var gridNodesNearby = [];
-        var xCount = 4;
-        var yCount = 4;
-        for (var i = gridNode.x - xCount / 2; i < gridNode.x + xCount; i++) {
-            for (var j = gridNode.y - yCount / 2; j < gridNode.y + yCount; j++) {
-                var node = this.grid.nodes[i][j];
-                if (node != null && node.nodeStatus === NodeStatus.NORMAL) {
-                    var dist = Math.abs(node.x - gridNode.x) + Math.abs(node.y - gridNode.y);
-                    if (dist > 2)
-                        gridNodesNearby.push(node);
-                    //node.itemNode.color = cc.Color.RED;
-                }
+
+    updateColliders() {
+        for (i = 0; i < this.allColliders.length; ++i) {
+            var col = this.allColliders[i];
+            // // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
+            // // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
+            var v1 = col.node.position;
+            var v2 = this.headNode.position;
+            var dist = v1.sub(v2).mag();
+            if (dist <= 300) {
+                // col.node.color = cc.Color.RED;
+                col.enabled = true;
+            }
+            else {
+                // col.node.color = cc.Color.WHITE;
+                col.enabled = false;
             }
         }
 
-        var i = parseInt(Math.random() * (gridNodesNearby.length - 1));
-        var node = gridNodesNearby[i];
-        var teleportGateNode = cc.instantiate(this.teleportGatePrefab);
-        if (node.itemNode != null)
-            node.itemNode.destroy();
-        node.itemNode = teleportGateNode;
-        teleportGateNode.getComponent("TeleportGate").GameManager = this;
-        teleportGateNode.position = node.node.position;
-
-        teleportGateNode.parent = this.GoldsNode;
-        this.updateItemColliders()
-    },
-
-    updateColliders() {
-        if (!this.EnermyAttackManager.enermyAttacking) {
-            for (i = 0; i < this.allColliders.length; ++i) {
-                var col = this.allColliders[i];
-                // // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
-                // // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
+        for (i = 0; i < this.itemColliders.length; ++i) {
+            var col = this.itemColliders[i];
+            if (col.node != null && col.node.opacity != 0) {
+                // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
+                // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
                 var v1 = col.node.position;
                 var v2 = this.headNode.position;
                 var dist = v1.sub(v2).mag();
-                if (dist <= 300) {
+                if (dist <= 100) {
                     // col.node.color = cc.Color.RED;
                     col.enabled = true;
                 }
                 else {
                     // col.node.color = cc.Color.WHITE;
                     col.enabled = false;
-                }
-            }
-
-            for (i = 0; i < this.itemColliders.length; ++i) {
-                var col = this.itemColliders[i];
-                if (col.node != null && col.node.opacity != 0) {
-                    // var v1 = col.node.parent.convertToWorldSpaceAR(col.node.position);
-                    // var v2 = this.headNode.parent.convertToWorldSpaceAR(this.headNode.position);
-                    var v1 = col.node.position;
-                    var v2 = this.headNode.position;
-                    var dist = v1.sub(v2).mag();
-                    if (dist <= 100) {
-                        // col.node.color = cc.Color.RED;
-                        col.enabled = true;
-                    }
-                    else {
-                        // col.node.color = cc.Color.WHITE;
-                        col.enabled = false;
-                    }
                 }
             }
         }
@@ -800,6 +733,10 @@ var GameManager = cc.Class({
         //cc.log(gridNode.x + "--" + gridNode.y);
     },
 
+    test() {
+        cc.director.loadScene("Level_1");
+    },
+
     backToMain: function () {
         window.firstTime = false;
         window.playAgain = true;
@@ -818,13 +755,7 @@ var GameManager = cc.Class({
     gameOver: function () {
         this.gameStarted = false;
         this.inputEnabled = false;
-        if (this.EnermyAttackManager.enermyAttacking) {
-            this.enermyAttacking = false;
 
-            clearInterval(this.EnermyAttackManager.spInterval);
-            clearTimeout(this.EnermyAttackManager.bonusTimeout);
-            clearInterval(this.EnermyAttackManager.timeCountInterval);
-        }
         this.showRes();
 
         this.curBGM.stop();
@@ -856,7 +787,7 @@ var GameManager = cc.Class({
             img = this.cheerImg;
         }
 
-        this.GameRes.setup(img, this.level, this.score, this.time, 55, this.EnermyAttackManager.crayfishNum, this.EnermyAttackManager.crabNum, this.EnermyAttackManager.ballNum)
+        this.GameRes.setup(img, this.level, this.score, this.time, 55, 0, 0, 0)
     },
 
     restart: function () {
@@ -876,44 +807,8 @@ var GameManager = cc.Class({
 
     updateSpeedUpScore: function (socreGet) {
         this.speedUpScore += socreGet * this.scoreFactor;
-        this.enermyAttackScore += socreGet * this.scoreFactor;
-        this.enermyAttackV2Score += socreGet * this.scoreFactor;
         this.checkSpeedUp();
         this.checkBodyLength();
-
-        if (!this.teleportGateSpawned && this.enermyAttackV2Score >= this.DataManager.triggerBonusScoreList[this.enermyAttackV2ThreholdIndex]) {
-            this.AudioManager.playTeleportGate();
-            this.spawnTeleportGate();
-            this.teleportGateSpawned = true;
-        }
-    },
-
-    startEnermyAttack: function () {
-        //重置crabbuff,如果有
-        if (this.crabTimeout)
-            clearTimeout(this.crabTimeout);
-        this.speedFactor = 1;
-        this.bRecoverCrabBuff = false;
-        this.recoverCrabBuffTime = 0;
-
-        this.teleportGateSpawned = false;
-        this.AudioManager.playBonusStart();
-        this.EnermyAttackManager.startAttack();
-        for (i = 0; i < this.allColliders.length; ++i) {
-            var col = this.allColliders[i];
-            col.enabled = false;
-        }
-        for (i = 0; i < this.itemColliders.length; ++i) {
-            var col = this.itemColliders[i];
-            if (col.node != null && col.node.opacity != 0) {
-                col.enabled = false;
-            }
-        }
-
-        this.enermyAttackV2Score = 0;
-        this.enermyAttackV2ThreholdIndex++;
-        if (this.enermyAttackV2ThreholdIndex >= this.DataManager.triggerBonusScoreList.length)
-            this.enermyAttackV2ThreholdIndex = this.DataManager.triggerBonusScoreList.length - 1;
     },
 
     checkLevelUp: function () {
@@ -971,8 +866,8 @@ var GameManager = cc.Class({
                 var itemComp = newItem.getComponent(prefabAndName[1]);
                 itemComp.GameManagerNode = this.node;
                 itemComp.DataManagerNode = this.DataManagerNode;
-                if (prefabAndName[1] === "Trap")
-                    itemComp.EnermyAttackManagerNode = this.EnermyAttackManagerNode;
+                // if (prefabAndName[1] === "Trap")
+                //     itemComp.EnermyAttackManagerNode = this.EnermyAttackManagerNode;
                 newItem.parent = parent;
                 newItem.setPosition(pos);
                 if (prefabAndName[1] === "SYSJ")
@@ -1077,7 +972,7 @@ var GameManager = cc.Class({
     clearAllTimeout: function () {
         clearTimeout(this.bunTimeout);
         clearTimeout(this.crabTimeout);
-        clearTimeout(this.bgAudioTimeout);
+        // clearTimeout(this.bgAudioTimeout);
         for (var i = 0; i < this.spawnNodeTimeoutList.length; i++) {
             clearTimeout(this.spawnNodeTimeoutList[i]);
         }

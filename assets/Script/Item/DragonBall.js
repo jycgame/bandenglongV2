@@ -13,7 +13,6 @@ cc.Class({
         // },
         // ...
     },
-    EnermyAttackManager: null,
     // use this for initialization
     onLoad: function () {
 

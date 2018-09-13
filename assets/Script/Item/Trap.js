@@ -11,10 +11,6 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
-        EnermyAttackManagerNode: {
-            default: null,
-            type: cc.Node,
-        },
     },
 
     t: null,
@@ -23,7 +19,6 @@ cc.Class({
     onLoad: function () {
         this.GameManager = this.GameManagerNode.getComponent("GameManager");
         this.DataManager = this.DataManagerNode.getComponent("DataManager");
-        this.EnermyAttackManager = this.EnermyAttackManagerNode.getComponent("EnermyAttackManager");
 
         var self = this;
         this.t = setTimeout(function () {
@@ -45,7 +40,7 @@ cc.Class({
         if (other.node.name === "Head") {
             if (this.GameManager.invincibleSYSJ)
                 this.GameManager.invincibleSYSJ = false;
-            else if (!this.GameManager.invincible && !this.EnermyAttackManager.invincible)
+            else if (!this.GameManager.invincible)
                 this.GameManager.gameOver();
             this.destroy1();
             this.GameManager.trapNum--;

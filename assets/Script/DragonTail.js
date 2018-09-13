@@ -6,10 +6,6 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
-        EnermyAttackManagerNode: {
-            default: null,
-            type: cc.Node,
-        },
         texUp:
         {
             default: null,
@@ -45,7 +41,6 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
         this.GameManager = this.GameManagerNode.getComponent("GameManager");
-        this.EnermyAttackManager = this.EnermyAttackManagerNode.getComponent("EnermyAttackManager");
         this.sprite = this.node.getComponent(cc.Sprite);
         if (!this.bGrowthSpawn) {
             this.targetDistQueue = [];
@@ -74,12 +69,12 @@ cc.Class({
                 var nextDir = this.TargetDist.sub(nextPos);
                 if (nextDir.mag() != 0) {
                     nextDir = nextDir.normalize();
-                    if (!this.refineNextDir(nextDir).equals(this.dir))//Èç¹û×ß¹ýÁËtargetDist, Ç¿ÖÆÒÆ¶¯µ½targetDist
+                    if (!this.refineNextDir(nextDir).equals(this.dir))//ï¿½ï¿½ï¿½ï¿½ß¹ï¿½ï¿½ï¿½targetDist, Ç¿ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½targetDist
                     {
                         this.dir = this.dirQueue.shift();
                         this.setTex();
 
-                        var restDist = this.TargetDist.sub(nextPos).mag();//×ß¹ýtargetDistÁË¶àÉÙ¾àÀë
+                        var restDist = this.TargetDist.sub(nextPos).mag();//ï¿½ß¹ï¿½targetDistï¿½Ë¶ï¿½ï¿½Ù¾ï¿½ï¿½ï¿½
                         nextPos = this.TargetDist.add(this.dir.mul(restDist));
 
                         if (this.targetDistQueue.length > 0)
@@ -109,7 +104,7 @@ cc.Class({
     },
 
     onCollisionEnter: function (other, self) {
-        if (other.node.group === "Head" && !this.EnermyAttackManager.invincible) {
+        if (other.node.group === "Head") {
             this.GameManager.gameOver();
         }
     },

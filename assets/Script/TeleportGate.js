@@ -21,7 +21,6 @@ cc.Class({
     onCollisionEnter: function (other, self) {
         if (other.node.name === "Head") {
             this.node.destroy();
-            this.GameManager.startEnermyAttack();
             this.GameManager.spawnNode(self.node.position, self.node.parent);
         }
     },

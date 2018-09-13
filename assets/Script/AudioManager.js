@@ -14,11 +14,7 @@ cc.Class({
             type: cc.AudioSource,
         },
 
-        enermyAttackAlertAudio:
-        {
-            default: null,
-            type: cc.AudioSource,
-        },
+       
 
         bigCoin:
         {
