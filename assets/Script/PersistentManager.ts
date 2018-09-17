@@ -1,4 +1,5 @@
 import PlatformFactory from "./Platform/PlatformFactory";
+import LoadingView from "./LoadingView";
 
 export default class PersistentManager {
     public static _inst: PersistentManager = null;
@@ -13,10 +14,13 @@ export default class PersistentManager {
         return this._inst;
     }
 
-    public init() {
+    public init(callback) {
+        LoadingView.inst.show();
         PlatformFactory.inst.currentPlatform.getPlayerInfo((data)=>{
             this.playerId = data.playerId;
             this.highScore = data.highScore;
+            LoadingView.inst.hide();
+            callback();
         });
     }
 

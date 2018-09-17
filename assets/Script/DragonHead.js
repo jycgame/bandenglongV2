@@ -47,7 +47,7 @@ cc.Class({
     onLoad: function () {
         this.GameManager = this.GameManagerNode.getComponent("GameManager");
         this.sprite = this.node.getComponent(cc.Sprite);
-        this.setInputControl();
+        // this.setInputControl();
         this.dir = this.GameManager.initialDir;
         this.stunNode = this.node.children[0];
     },

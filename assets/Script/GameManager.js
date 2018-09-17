@@ -11,11 +11,12 @@ var GameState = require('GameState');
 var GameTitleButton = require('GameTitleButton');
 
 import PersistentManager from './PersistentManager';
+import LoadingView from './LoadingView';
 
 var GameManager = cc.Class({
     extends: cc.Component,
     properties: {
-        QuitTipNode: cc.Node,
+        loadingView:LoadingView,
         coinEffectIntervalMin: 2,
         coinEffectIntervalMax: 5,
         coinEffectNum: 3,
@@ -111,6 +112,7 @@ var GameManager = cc.Class({
         crabAudio2: cc.AudioClip,
         crayfishAudio: cc.AudioClip,
       
+        cheerImg:cc.SpriteFrame,
         newRecImg: {
             default: null,
             type: cc.SpriteFrame
@@ -212,7 +214,7 @@ var GameManager = cc.Class({
     dragonBallCanUse: null,
 
     onLoad: function () {
-        this.startQuitCount = false;
+        this.loadingView.onStart();
         this.dragonBallCanUse = false;
         cc.director.resume();
 
@@ -266,13 +268,11 @@ var GameManager = cc.Class({
         this.coinEffectInterval = this.coinEffectIntervalMin + Math.random() * (this.coinEffectIntervalMax - this.coinEffectIntervalMin);
         this.coinEffectTime = 0;
 
-
-        PersistentManager.inst.init();
-        if (!window.playAgain) {
-            // UserDataConnector.getUserId();
-        }
-        else
+        PersistentManager.inst.init(()=>{
+            if (window.playAgain) 
             this.Main.skip();
+        });
+
         CoinAnimPool.init(this.coinAnimPrefab, 20, this.paibianNode);
         this.teleportGateSpawned = false;
         this.bigCoinRoad = []
@@ -449,29 +449,29 @@ var GameManager = cc.Class({
         this.updateItemColliders()
     },
 
-    resetDragon: function () {
-        this.dragonNode.children[0].getComponent('DragonHead').reset();
-        var posY = -1499;
-        for (var i = 1; i < this.dragonNode.childrenCount; i++) {
-            var bodyNode = this.dragonNode.children[i];
-            var body = null;
+    // resetDragon: function () {
+    //     this.dragonNode.children[0].getComponent('DragonHead').reset();
+    //     var posY = -1499;
+    //     for (var i = 1; i < this.dragonNode.childrenCount; i++) {
+    //         var bodyNode = this.dragonNode.children[i];
+    //         var body = null;
 
-            if (i == 1) {
-                posY -= 100;
-                body = bodyNode.getComponent("DragonBody");
-            }
+    //         if (i == 1) {
+    //             posY -= 100;
+    //             body = bodyNode.getComponent("DragonBody");
+    //         }
 
-            else if (i == this.dragonNode.childrenCount - 1) {
-                posY -= 100;
-                body = bodyNode.getComponent("DragonTail");
-            }
-            else {
-                posY -= 68;
-                body = bodyNode.getComponent("DragonBody");
-            }
-            body.reset(new cc.Vec2(639, posY));
-        }
-    },
+    //         else if (i == this.dragonNode.childrenCount - 1) {
+    //             posY -= 100;
+    //             body = bodyNode.getComponent("DragonTail");
+    //         }
+    //         else {
+    //             posY -= 68;
+    //             body = bodyNode.getComponent("DragonBody");
+    //         }
+    //         body.reset(new cc.Vec2(639, posY));
+    //     }
+    // },
 
     initCoinPool: function () {
         this.coinPool = new cc.NodePool();
@@ -500,32 +500,7 @@ var GameManager = cc.Class({
             coin.destroy();
     },
 
-
-    checkQuit(event) {
-        if (event.keyCode == InputConfig.back && this.startQuitCount) {
-            console.log("Quit Game!");
-            cc.game.end();
-            return true;
-        }
-        else if (event.keyCode == InputConfig.back) {
-            this.startQuitCount = true;
-            this.quitCount = 0;
-            this.QuitTipNode.active = true;
-            return true;
-        }
-        return false;
-    },
-
     update: function (dt) {
-        if (this.startQuitCount) {
-            this.quitCount += dt;
-            if (this.quitCount > 3) {
-                this.QuitTipNode.active = false;
-                this.startQuitCount = false;
-            }
-        }
-
-
         if (this.gameStarted) {
             this.time += dt;
             for (var i = 0; i < this.dragonNode.childrenCount; i++) {
@@ -666,14 +641,12 @@ var GameManager = cc.Class({
     },
 
     backToMain: function () {
-        window.firstTime = false;
         window.playAgain = true;
         cc.director.loadScene("Level_1");
         GameState.current = GameState.play;
     },
 
     backToMain1: function () {
-        window.firstTime = false;
         window.playAgain = false;
         cc.director.loadScene("Level_1");
 
@@ -714,7 +687,7 @@ var GameManager = cc.Class({
             img = this.cheerImg;
         }
 
-        this.GameRes.setup(img, this.level, this.score, this.time, 55, 0, 0, 0)
+        this.GameRes.setup(img, this.level, this.score, this.time, 0, 0)
     },
 
     restart: function () {
@@ -919,75 +892,75 @@ var GameManager = cc.Class({
     },
 
     getItemToSpawn: function () {
-        if (this.specialItemNum >= this.DataManager.itemNumLimit)//小金币
-        {
+        // if (this.specialItemNum >= this.DataManager.itemNumLimit)//小金币
+        // {
             return [this.smallCoin, "SmallCoin"];
-        }
-        else if (this.score >= this.DataManager.trapThrehold) {
-            var groupIndex = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup0);
-            switch (groupIndex) {
-                case 0:
-                    return [this.smallCoin, "SmallCoin"];
-                case 1: //group1
-                    var groupIndex1 = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup1);
-                    switch (groupIndex1) {
-                        case 0:
-                            this.specialItemNum++;
-                            return [this.crayfish, "Crayfish"];
-                        case 1:
-                            this.specialItemNum++;
-                            return [this.crab, "Crab"];
-                        case 2:
-                            this.specialItemNum++;
-                            return [this.bun, "Bun"];
-                    }
-                    break;
-                case 2:// gourp2
-                    var groupIndex2 = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup2);
-                    switch (groupIndex2) {
-                        case 0:
-                            this.specialItemNum++;
-                            return [this.sysj, "SYSJ"];
-                        case 1:
-                            this.specialItemNum++;
-                            return [this.jcwd, "JCWD"];
-                    }
-                    break;
-                case 3:
-                    if (this.trapNum < 10) {
-                        this.trapNum++;
-                        return [this.trap, "Trap"];
-                    }
-                    else
-                        return [this.smallCoin, "SmallCoin"];
-            }
-        }
-        else //group3
-        {
-            var groupIndex = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup3);
-            switch (groupIndex) {
-                case 0:
-                    return [this.smallCoin, "SmallCoin"];
-                //case 1: 大闸蟹概率为0,不会出现
-                //    break;
-                case 2:
-                    this.specialItemNum++;
-                    return [this.bun, "Bun"];
-                case 3:// gourp2
-                    var groupIndex2 = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup2);
-                    switch (groupIndex2) {
-                        case 0:
-                            this.specialItemNum++;
-                            return [this.sysj, "SYSJ"];
-                        case 1:
-                            this.specialItemNum++;
-                            return [this.jcwd, "JCWD"];
-                    }
-                    break;
-            }
-        }
-        cc.error("getItemToSpawn failed!!!");
-        return null;
+        // }
+        // else if (this.score >= this.DataManager.trapThrehold) {
+        //     var groupIndex = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup0);
+        //     switch (groupIndex) {
+        //         case 0:
+        //             return [this.smallCoin, "SmallCoin"];
+        //         case 1: //group1
+        //             var groupIndex1 = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup1);
+        //             switch (groupIndex1) {
+        //                 case 0:
+        //                     this.specialItemNum++;
+        //                     return [this.crayfish, "Crayfish"];
+        //                 case 1:
+        //                     this.specialItemNum++;
+        //                     return [this.crab, "Crab"];
+        //                 case 2:
+        //                     this.specialItemNum++;
+        //                     return [this.bun, "Bun"];
+        //             }
+        //             break;
+        //         case 2:// gourp2
+        //             var groupIndex2 = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup2);
+        //             switch (groupIndex2) {
+        //                 case 0:
+        //                     this.specialItemNum++;
+        //                     return [this.sysj, "SYSJ"];
+        //                 case 1:
+        //                     this.specialItemNum++;
+        //                     return [this.jcwd, "JCWD"];
+        //             }
+        //             break;
+        //         case 3:
+        //             if (this.trapNum < 10) {
+        //                 this.trapNum++;
+        //                 return [this.trap, "Trap"];
+        //             }
+        //             else
+        //                 return [this.smallCoin, "SmallCoin"];
+        //     }
+        // }
+        // else //group3
+        // {
+        //     var groupIndex = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup3);
+        //     switch (groupIndex) {
+        //         case 0:
+        //             return [this.smallCoin, "SmallCoin"];
+        //         //case 1: 大闸蟹概率为0,不会出现
+        //         //    break;
+        //         case 2:
+        //             this.specialItemNum++;
+        //             return [this.bun, "Bun"];
+        //         case 3:// gourp2
+        //             var groupIndex2 = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup2);
+        //             switch (groupIndex2) {
+        //                 case 0:
+        //                     this.specialItemNum++;
+        //                     return [this.sysj, "SYSJ"];
+        //                 case 1:
+        //                     this.specialItemNum++;
+        //                     return [this.jcwd, "JCWD"];
+        //             }
+        //             break;
+        //     }
+        // }
+        // cc.error("getItemToSpawn failed!!!");
+        // return null;
     },
 });
 

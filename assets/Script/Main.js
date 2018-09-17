@@ -42,24 +42,8 @@ cc.Class({
         gm.inputEnabled = true;
         gm.highscore = PersistentManager.inst.highScore;
         gm.highscoreLabel.string = PersistentManager.inst.highScore.toString();
+        gm.dragonHead.setInputControl();
         this.PlayerInfo.init();
-
-        // var self = this;
-        // UserDataConnector.getHighScore(function (highscore) {
-        //     if (!window.firstTime) {
-        //         gm.speed = 250;
-        //         gm.gameStarted = true;
-        //         gm.inputEnabled = true;
-        //         gm.highscore = highscore;
-        //         gm.highscoreLabel.string = highscore;
-        //         self.PlayerInfo.init();
-        //         // Talking data isn't available in native app
-        //         //TDAPP.onEvent("click start");
-        //     }
-        //     else {
-        //         self.Guide.show();
-        //     }
-        // });
 
         this.node.active = false;
         GameState.current = GameState.play;
@@ -70,6 +54,9 @@ cc.Class({
         gm.speed = 250;
         gm.gameStarted = true;
         gm.inputEnabled = true;
+        gm.highscore = PersistentManager.inst.highScore;
+        gm.highscoreLabel.string = PersistentManager.inst.highScore.toString();
+        gm.dragonHead.setInputControl();
         this.Guide.hide();
         this.PlayerInfo.init();
         // Talking data isn't available in native app
