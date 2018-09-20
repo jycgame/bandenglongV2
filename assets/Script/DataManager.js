@@ -78,10 +78,6 @@ cc.Class({
         this.readEnterGameData();
     },
 
-
-    
-
-
     readEnterGameData: function () {
         var self = this;
         cc.loader.loadRes("Data/EnterGameData", function (err, csvData) {
@@ -141,10 +137,10 @@ cc.Class({
                 for (var i = 0; i < monsterData.length - 2; i++) {
                     var curGroupIndex = parseInt(monsterData[i + 2][0]);
                     var monsterDataRow = [];
-                    monsterDataRow[0] = monsterData[i + 2][1];//Ä¿±êÎ»ÖÃ
-                    monsterDataRow[1] = monsterData[i + 2][2].split('-');//monsterÆäÊµÎ»ÖÃÁÐ±í
-                    monsterDataRow[2] = monsterData[i + 2][3].split('-');//monster infoÁÐ±í
-                    monsterDataRow[3] = monsterData[i + 2][4];// Íê³ÉÈÎÎñµÃ·Ö
+                    monsterDataRow[0] = monsterData[i + 2][1];//Ä¿ï¿½ï¿½Î»ï¿½ï¿½
+                    monsterDataRow[1] = monsterData[i + 2][2].split('-');//monsterï¿½ï¿½ÊµÎ»ï¿½ï¿½ï¿½Ð±ï¿½
+                    monsterDataRow[2] = monsterData[i + 2][3].split('-');//monster infoï¿½Ð±ï¿½
+                    monsterDataRow[3] = monsterData[i + 2][4];// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½
 
                     if (curGroupIndex === groupIndex)
                         monsterDataGroup.push(monsterDataRow);
@@ -205,12 +201,13 @@ cc.Class({
             }
             if (self.GoldsNode) {
                 for (var i = 0; i < self.GoldsNode.children.length; i++) {
-                    var SmallCoin = self.GoldsNode.children[i].getComponent("SmallCoin");
-                    if (!SmallCoin)
-                        SmallCoin = self.GoldsNode.children[i].addComponent("SmallCoin");
-
-                    SmallCoin.GameManagerNode = self.GameManagerNode;
-                    SmallCoin.DataManagerNode = self.node;
+                    if (self.GoldsNode.children[i].name === "jinbi"){
+                        var SmallCoin = self.GoldsNode.children[i].getComponent("SmallCoin");
+                        if (!SmallCoin)
+                            SmallCoin = self.GoldsNode.children[i].addComponent("SmallCoin");
+                        SmallCoin.GameManagerNode = self.GameManagerNode;
+                        SmallCoin.DataManagerNode = self.node;
+                    }
                 }
             }
         });

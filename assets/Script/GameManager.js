@@ -12,11 +12,12 @@ var GameTitleButton = require('GameTitleButton');
 
 import PersistentManager from './PersistentManager';
 import LoadingView from './LoadingView';
+import Buff from "./Item/Buff";
 
 var GameManager = cc.Class({
     extends: cc.Component,
     properties: {
-        loadingView:LoadingView,
+        loadingView: LoadingView,
         coinEffectIntervalMin: 2,
         coinEffectIntervalMax: 5,
         coinEffectNum: 3,
@@ -111,8 +112,8 @@ var GameManager = cc.Class({
         crabAudio1: cc.AudioClip,
         crabAudio2: cc.AudioClip,
         crayfishAudio: cc.AudioClip,
-      
-        cheerImg:cc.SpriteFrame,
+
+        cheerImg: cc.SpriteFrame,
         newRecImg: {
             default: null,
             type: cc.SpriteFrame
@@ -184,18 +185,8 @@ var GameManager = cc.Class({
     crayfishTimeout: null,
     // bgAudioTimeout: null,
 
-
     trapNum: null,
     specialItemNum: null,
-
-    sysjIndex: null,
-    jcwdIndex: null,
-
-    NextSysjIndex: null,
-    NextJcwdIndex: null,
-
-    JCWDwords: null,
-    SYSJwords: null,
 
     curBodyLength: null,
     newSpriteNode: null,
@@ -212,6 +203,10 @@ var GameManager = cc.Class({
     helpButton: null,
 
     dragonBallCanUse: null,
+
+    socreNum: null,
+    speedNum: null,
+    lifeNum: null,
 
     onLoad: function () {
         this.loadingView.onStart();
@@ -241,15 +236,6 @@ var GameManager = cc.Class({
         this.trapNum = 0;
         this.specialItemNum = 0;
 
-        this.sysjIndex = 3;
-        this.jcwdIndex = 3;
-
-        this.NextSysjIndex = 3;
-        this.NextJcwdIndex = 3;
-
-        this.JCWDwords = [];
-        this.SYSJwords = [];
-
         this.spawnNodeTimeoutList = [];
         this.curBodyLength = 1;
         this.curSpeedUpDataIndex = 0;
@@ -268,9 +254,9 @@ var GameManager = cc.Class({
         this.coinEffectInterval = this.coinEffectIntervalMin + Math.random() * (this.coinEffectIntervalMax - this.coinEffectIntervalMin);
         this.coinEffectTime = 0;
 
-        PersistentManager.inst.init(()=>{
-            if (window.playAgain) 
-            this.Main.skip();
+        PersistentManager.inst.init(() => {
+            if (window.playAgain)
+                this.Main.skip();
         });
 
         CoinAnimPool.init(this.coinAnimPrefab, 20, this.paibianNode);
@@ -304,6 +290,9 @@ var GameManager = cc.Class({
         this.itemParent = cc.find("Canvas/GroundFloor/Golds")
         this.updateItemColliders()
 
+        this.socreNum = 0;
+        this.speedNum = 0;
+        this.lifeNum = 0;
     },
 
     updateItemColliders() {
@@ -687,7 +676,7 @@ var GameManager = cc.Class({
             img = this.cheerImg;
         }
 
-        this.GameRes.setup(img, this.level, this.score, this.time, 0, 0)
+        this.GameRes.setup(img, this.level, this.score, this.time, this.socreNum, this.speedNum, this.lifeNum)
     },
 
     restart: function () {
@@ -700,9 +689,8 @@ var GameManager = cc.Class({
         else
             this.score += socreGet;
         this.scoreLabel.string = this.score;
+        Buff.checkBuffThrehold(this.score);
         this.checkLevelUp();
-
-
     },
 
     updateSpeedUpScore: function (socreGet) {
@@ -746,6 +734,7 @@ var GameManager = cc.Class({
                 break;
         }
     },
+
     spawnNode: function (pos, parent) {
         var gridNode = this.grid.getNodeFromPosition(pos);
         gridNode.itemNode = null;
@@ -766,14 +755,8 @@ var GameManager = cc.Class({
                 var itemComp = newItem.getComponent(prefabAndName[1]);
                 itemComp.GameManagerNode = this.node;
                 itemComp.DataManagerNode = this.DataManagerNode;
-                // if (prefabAndName[1] === "Trap")
-                //     itemComp.EnermyAttackManagerNode = this.EnermyAttackManagerNode;
                 newItem.parent = parent;
                 newItem.setPosition(pos);
-                if (prefabAndName[1] === "SYSJ")
-                    this.SYSJwords.push(newItem);
-                if (prefabAndName[1] === "JCWD")
-                    this.JCWDwords.push(newItem);
 
                 this.updateItemColliders()
             }
@@ -781,7 +764,8 @@ var GameManager = cc.Class({
         this.spawnNodeTimeoutList.push(spawnNodeTimeout);
     },
 
-    setBunBuff: function () {
+    setScoreBuff: function () {
+        this.socreNum++;
         this.BuffControl.node.children[0].stopAllActions();
         this.BuffControl.node.children[0].opacity = 255;
 
@@ -811,7 +795,8 @@ var GameManager = cc.Class({
         }.bind(this), (this.DataManager.bunTime - 3) * 1000);
     },
 
-    setCrabBuff: function () {
+    setSpeedBuff: function () {
+        this.speedNum++;
         this.BuffControl.node.children[1].stopAllActions();
         this.BuffControl.node.children[1].opacity = 255;
         var self = this;
@@ -843,7 +828,8 @@ var GameManager = cc.Class({
         }.bind(this), (this.DataManager.crabTime - 3) * 1000);
     },
 
-    setCrayfishBuff: function () {
+    setLifeBuff: function () {
+        this.lifeNum++;
         this.BuffControl.node.children[2].stopAllActions();
         this.BuffControl.node.children[2].opacity = 255;
         var self = this;
@@ -894,7 +880,7 @@ var GameManager = cc.Class({
     getItemToSpawn: function () {
         // if (this.specialItemNum >= this.DataManager.itemNumLimit)//小金币
         // {
-            return [this.smallCoin, "SmallCoin"];
+        return [this.smallCoin, "SmallCoin"];
         // }
         // else if (this.score >= this.DataManager.trapThrehold) {
         //     var groupIndex = this.getProbabilityGroupIndex(this.DataManager.probabilityGroup0);

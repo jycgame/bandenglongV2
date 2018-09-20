@@ -6,8 +6,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        gameManager: null,
-
         titleSprite: {
             default: null,
             type: cc.Sprite,
@@ -25,120 +23,21 @@ cc.Class({
             type: cc.Label,
         },
 
-        crayfishLabel: {
-            default: null,
-            type: cc.Label,
-        },
-        crabLabel: {
-            default: null,
-            type: cc.Label,
-        },
+        scoreBuffLabel: cc.Label,
+        speedBuffLabel: cc.Label,
+        lifeBuffLabel: cc.Label,
+
         isShow: {
             default: false,
         },
-
-        rankButton: null,
-        playAgainButton: null,
-        mainMenuButton: null,
     },
-
-    onLoad: function () {
-        //warning: function "setup" is called before this function
-        this.gameManager = cc.find("GameManager").getComponent("GameManager");
-
-        this.rankButton = cc.find("Canvas/HUD/GameRes/RankButton");
-        this.mainMenuButton = cc.find("Canvas/HUD/GameRes/MainMenuButton");
-        this.playAgainButton = cc.find("Canvas/HUD/GameRes/PlayAgainButton");
-    },
-
-    // processKeyUp: function (event) {
-    //     if (GameState.current != GameState.result)
-    //         return;
-
-    //     if (this.isShow == true) {
-
-    //         var needRank = InputConfig.needRank();
-
-    //         if (needRank != true) {
-
-    //             if (event.keyCode == InputConfig.dpadCenter) {
-    //                 if (GameResFocusButton.current == GameResFocusButton.playagain) {
-    //                     this.gameManager.backToMain();
-    //                     this.gameManager.AudioManager.playBtn();
-    //                 }
-    //                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-    //                     this.gameManager.backToMain1();
-    //                     this.gameManager.AudioManager.playBtn();
-    //                 }
-    //             }
-    //             else if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
-    //                 if (GameResFocusButton.current == GameResFocusButton.playagain) {
-
-    //                     GameResFocusButton.current = GameResFocusButton.mainmenu;
-    //                 }
-    //                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-    //                     GameResFocusButton.current = GameResFocusButton.playagain;
-    //                 }
-    //             }
-    //             else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
-    //                 if (GameResFocusButton.current == GameResFocusButton.playagain) {
-    //                     GameResFocusButton.current = GameResFocusButton.mainmenu;
-    //                 }
-    //                 else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-    //                     GameResFocusButton.current = GameResFocusButton.playagain;
-    //                 }
-    //             }
-    //         }
-    //         else {
-    //             if (event.keyCode == InputConfig.dpadCenter) {
-    //                 if (GameResFocusButton.current == GameResFocusButton.rank) {
-    //                 }
-    //                 else
-    //                     if (GameResFocusButton.current == GameResFocusButton.playagain) {
-    //                         this.gameManager.backToMain();
-    //                         this.gameManager.AudioManager.playBtn();
-    //                     }
-    //                     else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-    //                         this.gameManager.backToMain1();
-    //                         this.gameManager.AudioManager.playBtn();
-    //                     }
-    //             }
-    //             else if (event.keyCode == InputConfig.dpadRight || event.keyCode == InputConfig.dpadDown) {
-    //                 if (GameResFocusButton.current == GameResFocusButton.rank) {
-    //                     GameResFocusButton.current = GameResFocusButton.playagain;
-    //                 }
-    //                 else
-    //                     if (GameResFocusButton.current == GameResFocusButton.playagain) {
-    //                         GameResFocusButton.current = GameResFocusButton.mainmenu;
-    //                     }
-    //                     else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-    //                         GameResFocusButton.current = GameResFocusButton.rank;
-    //                     }
-    //             }
-    //             else if (event.keyCode == InputConfig.dpadLeft || event.keyCode == InputConfig.dpadUp) {
-    //                 if (GameResFocusButton.current == GameResFocusButton.rank) {
-    //                     GameResFocusButton.current = GameResFocusButton.mainmenu;
-    //                 }
-    //                 else
-    //                     if (GameResFocusButton.current == GameResFocusButton.playagain) {
-    //                         GameResFocusButton.current = GameResFocusButton.rank;
-    //                     }
-    //                     else if (GameResFocusButton.current == GameResFocusButton.mainmenu) {
-    //                         GameResFocusButton.current = GameResFocusButton.playagain;
-    //                     }
-    //             }
-
-    //         }
-    //     }
-
-    // },
 
     setShow: function (show) {
         this.isShow = show;
     },
 
     // use this for initialization
-    setup: function (img, level, score, time, crayfishNum, crabNum) {
+    setup: function (img, level, score, time, scoreNum, speedNum, lifeNum) {
 
         this.titleSprite.spriteFrame = img;
         this.setLabel(this.levelLabel, level);
@@ -147,8 +46,9 @@ cc.Class({
 
         this.setLabel(this.timeLabel, time);
 
-        this.setLabel(this.crayfishLabel, crayfishNum);
-        this.setLabel(this.crabLabel, crabNum);
+        this.setLabel(this.scoreBuffLabel, scoreNum);
+        this.setLabel(this.speedBuffLabel, speedNum);
+        this.setLabel(this.lifeBuffLabel, lifeNum);
 
         this.isShow = true;
         // GameResFocusButton.current = GameResFocusButton.rank;
@@ -160,5 +60,5 @@ cc.Class({
         label.string = val;
         label.node.children[0].getComponent(cc.Label).string = val;
     },
-   
+
 });

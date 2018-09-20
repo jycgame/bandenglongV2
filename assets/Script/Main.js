@@ -2,6 +2,8 @@ var Guide = require('Guide');
 var PlayerInfo = require('PlayerInfo');
 var GameState = require('GameState');
 import PersistentManager from './PersistentManager';
+import Buff from "./Item/Buff";
+import Bomb from "./Item/Bomb";
 
 cc.Class({
     extends: cc.Component,
@@ -23,6 +25,10 @@ cc.Class({
             default: null,
             type: PlayerInfo,
         },
+
+        BuffParent: cc.Node,
+        BombParent: cc.Node,
+
         gameManager: null,
         guide: null,
         gameResult: null,
@@ -44,6 +50,14 @@ cc.Class({
         gm.highscoreLabel.string = PersistentManager.inst.highScore.toString();
         gm.dragonHead.setInputControl();
         this.PlayerInfo.init();
+        for (var i = 0; i < this.BuffParent.children.length; i++) {
+            var buff = this.BuffParent.children[i].getComponent(Buff);
+            buff.init();
+        }
+        for (var i = 0; i < this.BombParent.children.length; i++) {
+            var bomb = this.BombParent.children[i].getComponent(Bomb);
+            bomb.init();
+        }
 
         this.node.active = false;
         GameState.current = GameState.play;
@@ -59,6 +73,17 @@ cc.Class({
         gm.dragonHead.setInputControl();
         this.Guide.hide();
         this.PlayerInfo.init();
+
+        for (var i = 0; i < this.BuffParent.children.length; i++) {
+            var buff = this.BuffParent.children[i].getComponent(Buff);
+            buff.init();
+        }
+        for (var i = 0; i < this.BombParent.children.length; i++) {
+            var bomb = this.BombParent.children[i].getComponent(Bomb);
+            bomb.init();
+        }
+
+
         // Talking data isn't available in native app
         // TDAPP.onEvent("click start");
     },

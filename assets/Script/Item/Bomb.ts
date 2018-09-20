@@ -1,13 +1,11 @@
-import {Buf} from "../Data/Buf";
+import { Buf } from "../Data/Buf";
 var CoinAnimPool = require('CoinAnimPool');
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class Buff extends cc.Component {
+export default class Bomb extends cc.Component {
 
-    static scoreProb = 0;
-    static speedProb = 0;
-    static lifeProb = 0;
+    static bombProp = 0;
 
     @property(cc.Node)
     GameManagerNode: cc.Node = null;
@@ -16,13 +14,7 @@ export default class Buff extends cc.Component {
     DataManagerNode: cc.Node = null;
 
     @property(cc.SpriteFrame)
-    scoreBuffSf: cc.SpriteFrame = null;
-
-    @property(cc.SpriteFrame)
-    speedBuffSf: cc.SpriteFrame = null;
-
-    @property(cc.SpriteFrame)
-    lifeBuffSf: cc.SpriteFrame = null;
+    bombSf: cc.SpriteFrame = null;
 
     @property(cc.SpriteFrame)
     coinSf: cc.SpriteFrame = null;
@@ -38,15 +30,18 @@ export default class Buff extends cc.Component {
     private gridNode;
     public static curBuffTableRow;
     public static nextBuffThrehold;
+    private trapAnim;
     init() {
         this.GameManager = this.GameManagerNode.getComponent("GameManager");
         this.DataManager = this.DataManagerNode.getComponent("DataManager");
 
         this.gridNode = this.GameManager.grid.getNodeFromPosition(this.node.position);
-        
-        Buff.curBuffTableRow = 0;
-        Buff.nextBuffThrehold = 0;
-        Buff.updateProbs();
+
+        Bomb.curBuffTableRow = 0;
+        Bomb.nextBuffThrehold = 0;
+
+        this.trapAnim = this.node.getComponent(cc.Animation);
+        Bomb.updateProbs();
         this.sprite = this.node.getComponent(cc.Sprite);
         this.bAnim = false;
         this.timePassed = 0;
@@ -61,9 +56,7 @@ export default class Buff extends cc.Component {
 
     public static updateProbs() {
         let curRow = Buf[this.curBuffTableRow]
-        this.scoreProb  = curRow.scoreBuf/100;
-        this.speedProb = curRow.speedBuf/100;
-        this.lifeProb = curRow.lifeBuf/100;
+        this.bombProp = curRow.bomb / 100;
         this.curBuffTableRow += 1;
         this.nextBuffThrehold = Buf[this.curBuffTableRow].score;
     }
@@ -72,26 +65,12 @@ export default class Buff extends cc.Component {
         if (other.node.name === "Head" && this.curBuff != -1) {
             switch (this.curBuff) {
                 case 0:
-                    var n = Math.random();
-                    if (n <= 0.5)
-                        cc.audioEngine.play(this.GameManager.bunAudio1);
-                    else
-                        cc.audioEngine.play(this.GameManager.bunAudio2);
-                    this.GameManager.setScoreBuff();
+                    if (this.GameManager.invincibleSYSJ)
+                        this.GameManager.invincibleSYSJ = false;
+                    else if (!this.GameManager.invincible)
+                        this.GameManager.gameOver();
                     break;
                 case 1:
-                    var n = Math.random();
-                    if (n <= 0.5)
-                        cc.audioEngine.play(this.GameManager.crabAudio1);
-                    else
-                        cc.audioEngine.play(this.GameManager.crabAudio2);
-                    this.GameManager.setSpeedBuff();
-                    break;
-                case 2:
-                    cc.audioEngine.play(this.GameManager.crayfishAudio);
-                    this.GameManager.setLifeBuff();
-                    break;
-                case 3:
                     this.gridNode.itemNode = null;
                     var n = Math.random();
                     if (n <= 0.2)
@@ -103,7 +82,7 @@ export default class Buff extends cc.Component {
                     this.GameManager.updateSpeedUpScore(this.DataManager.smallCoinValue);
 
                     this.coinAnimNode = CoinAnimPool.create();
-                    this.coinAnimNode.position = this.node.position;
+                    this.coinAnimNode.position = self.node.position;
                     var action = cc.moveBy(0.1, new cc.Vec2(0, 80));
                     this.coinAnimNode.runAction(action);
 
@@ -123,25 +102,40 @@ export default class Buff extends cc.Component {
     }
 
     spawn() {
-        this.node.opacity = 255;
         var n = Math.random();
-        if (n < Buff.scoreProb) {
-            this.curBuff = 0;
-            this.sprite.spriteFrame = this.scoreBuffSf;
-        }
-        else if (n < Buff.scoreProb + Buff.speedProb) {
-            this.curBuff = 1;
-            this.sprite.spriteFrame = this.speedBuffSf;
-        }
-        else if (n < Buff.scoreProb + Buff.speedProb + Buff.lifeProb) {
-            this.curBuff = 2;
-            this.sprite.spriteFrame = this.lifeBuffSf;
+        if (n < Bomb.bombProp) {
+            this.curBuff = -1;
+            this.sprite.spriteFrame = this.bombSf;
+            this.trapAnim.play();
+
+            let respawTime = (this.DataManager.maxSpawnTime - this.DataManager.minSpawnTime) * Math.random() + this.DataManager.minSpawnTime;
+            if (!respawTime) {
+                respawTime = 10;
+            }
+            let trapTime = this.DataManager.trapTime
+            if (!trapTime)
+                trapTime = 10;
+
+            this.scheduleOnce(() => {
+                this.node.opacity = 0;
+                this.curBuff = -1;
+                this.scheduleOnce(() => {
+                    console.log(3)
+                    this.spawn();
+                }, respawTime);
+            }, trapTime);
+
+            this.scheduleOnce(() => {
+                this.trapAnim.stop();
+                this.node.opacity = 255;
+                this.curBuff = 0;
+            }, 3);
         }
         else {
-            this.curBuff = 3;
+            this.node.opacity = 255;
+            this.curBuff = 1;
             this.sprite.spriteFrame = this.coinSf;
             this.gridNode.itemNode = this.node;
-
         }
     }
 
@@ -154,4 +148,5 @@ export default class Buff extends cc.Component {
             }
         }
     }
+
 }
