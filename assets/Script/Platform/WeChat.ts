@@ -8,7 +8,7 @@ export default class WeChat {
             return this._inst;
     }
 
-    private WeChat() { }
+    private constructor() { }
 
     public getPlayerInfo(callback = (data) => { }) {
         wx.login({

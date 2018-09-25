@@ -7,7 +7,7 @@
 	bomb: number;
 }
 export let Buf: BuffData[] = [
-	{ score: 0, coin: 100, scoreBuf: 100, speedBuf: 0, lifeBuf: 0, bomb: 100 },
+	{ score: 0, coin: 100, scoreBuf: 0, speedBuf: 50, lifeBuf: 50, bomb: 100 },
 	{ score: 50, coin: 100, scoreBuf: 0, speedBuf: 0, lifeBuf: 0, bomb: 0 },
 	{ score: 100, coin: 100, scoreBuf: 0, speedBuf: 0, lifeBuf: 0, bomb: 0 },
 	{ score: 150, coin: 70, scoreBuf: 10, speedBuf: 10, lifeBuf: 10, bomb: 30 },

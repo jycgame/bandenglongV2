@@ -1,4 +1,5 @@
 import PlatformFactory from "./Platform/PlatformFactory";
+import RankManager from "./RankManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -8,15 +9,23 @@ export default class RankView extends cc.Component {
     @property(cc.Button)
     closeBtn: cc.Button = null;
 
-    private tex: cc.Texture2D;
-    private sprite: cc.Sprite;
-    start() {
-        this.sprite = this.node.getComponent(cc.Sprite);
-        this.closeBtn.node.on("click", () => this.closeBtnOnClick());
-        this.node.active = false;
+    @property(cc.Sprite)
+    wechatSprite:cc.Sprite = null;
 
-        this.tex = new cc.Texture2D();
+    @property(RankManager)
+    FBRankManager:RankManager = null;
+
+    private FBRank:cc.Node;
+    private tex: cc.Texture2D;
+    start() {
+        this.closeBtn.node.on("click", () => this.closeBtnOnClick());
+        this.FBRank = this.FBRankManager.node.parent;
+        this.wechatSprite.node.active = false;
+        this.node.active = false;
+        this.FBRank.active = false;
+
         if (CC_WECHATGAME) {
+            this.tex = new cc.Texture2D();
             sharedCanvas.width = 1044;
             sharedCanvas.height = 1006;
         }
@@ -25,9 +34,21 @@ export default class RankView extends cc.Component {
     show() {
         PlatformFactory.inst.currentPlatform.refreshLeaderBoard();
         this.node.active = true;
+        if(CC_WECHATGAME){
+            this.wechatSprite.node.active = true;
+        }
+        else if (typeof FBInstant != "undefined") {
+            this.FBRank.active = true;
+        }
     }
 
     closeBtnOnClick() {
+        if(CC_WECHATGAME){
+            this.wechatSprite.node.active = false;
+        }
+        else if (typeof FBInstant != "undefined") {
+            this.FBRank.active = false;
+        }
         this.node.active = false;
     }
 
@@ -39,7 +60,7 @@ export default class RankView extends cc.Component {
         if (CC_WECHATGAME) {
             this.tex.initWithElement(sharedCanvas);
             this.tex.handleLoadedTexture();
-            this.sprite.spriteFrame = new cc.SpriteFrame(this.tex);
+            this.wechatSprite.spriteFrame = new cc.SpriteFrame(this.tex);
         }
     }
 }

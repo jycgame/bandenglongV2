@@ -41,6 +41,20 @@ cc.Class({
     },
 
     loadGameScene: function () {
+        if (typeof FBInstant != "undefined" && !window.playAgain) {
+            FBInstant.context
+                .chooseAsync()
+                .then(() => {
+                   this.startGame1();
+                }).catch((error) => {
+                    this.startGame1();
+                 });
+        } else {
+            this.startGame1();
+        }
+    },
+
+    startGame1 () {
         this.PlayerInfoNode.active = true;
         var gm = this.GameManagerNode.getComponent("GameManager");
         gm.speed = 250;
@@ -64,25 +78,24 @@ cc.Class({
     },
 
     startGame: function () {
-        var gm = this.GameManagerNode.getComponent("GameManager");
-        gm.speed = 250;
-        gm.gameStarted = true;
-        gm.inputEnabled = true;
-        gm.highscore = PersistentManager.inst.highScore;
-        gm.highscoreLabel.string = PersistentManager.inst.highScore.toString();
-        gm.dragonHead.setInputControl();
+        // var gm = this.GameManagerNode.getComponent("GameManager");
+        // gm.speed = 250;
+        // gm.gameStarted = true;
+        // gm.inputEnabled = true;
+        // gm.highscore = PersistentManager.inst.highScore;
+        // gm.highscoreLabel.string = PersistentManager.inst.highScore.toString();
+        // gm.dragonHead.setInputControl();
         this.Guide.hide();
-        this.PlayerInfo.init();
+        // this.PlayerInfo.init();
 
-        for (var i = 0; i < this.BuffParent.children.length; i++) {
-            var buff = this.BuffParent.children[i].getComponent(Buff);
-            buff.init();
-        }
-        for (var i = 0; i < this.BombParent.children.length; i++) {
-            var bomb = this.BombParent.children[i].getComponent(Bomb);
-            bomb.init();
-        }
-
+        // for (var i = 0; i < this.BuffParent.children.length; i++) {
+        //     var buff = this.BuffParent.children[i].getComponent(Buff);
+        //     buff.init();
+        // }
+        // for (var i = 0; i < this.BombParent.children.length; i++) {
+        //     var bomb = this.BombParent.children[i].getComponent(Bomb);
+        //     bomb.init();
+        // }
 
         // Talking data isn't available in native app
         // TDAPP.onEvent("click start");

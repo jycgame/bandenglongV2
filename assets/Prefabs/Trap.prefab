@@ -124,8 +124,7 @@
     },
     "_enabled": true,
     "GameManagerNode": null,
-    "DataManagerNode": null,
-    "EnermyAttackManagerNode": null
+    "DataManagerNode": null
   },
   {
     "__type__": "cc.Animation",
@@ -141,9 +140,6 @@
     "_clips": [
       {
         "__uuid__": "c45812f9-a0f3-47de-a049-81edaaab6a7d"
-      },
-      {
-        "__uuid__": "6d090d17-2a27-40b0-a095-b23f9d3f8433"
       }
     ],
     "playOnLoad": true

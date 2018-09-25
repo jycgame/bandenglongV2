@@ -13,6 +13,7 @@ var GameTitleButton = require('GameTitleButton');
 import PersistentManager from './PersistentManager';
 import LoadingView from './LoadingView';
 import Buff from "./Item/Buff";
+import Bomb from './Item/Bomb';
 
 var GameManager = cc.Class({
     extends: cc.Component,
@@ -630,9 +631,23 @@ var GameManager = cc.Class({
     },
 
     backToMain: function () {
-        window.playAgain = true;
-        cc.director.loadScene("Level_1");
-        GameState.current = GameState.play;
+        if (typeof FBInstant != "undefined") {
+            FBInstant.context
+                .chooseAsync()
+                .then(() => {
+                    window.playAgain = true;
+                    cc.director.loadScene("Level_1");
+                    GameState.current = GameState.play;
+                }).catch((error) => {
+                    window.playAgain = true;
+                    cc.director.loadScene("Level_1");
+                    GameState.current = GameState.play;
+                });
+        } else {
+            window.playAgain = true;
+            cc.director.loadScene("Level_1");
+            GameState.current = GameState.play;
+        }
     },
 
     backToMain1: function () {
@@ -690,6 +705,7 @@ var GameManager = cc.Class({
             this.score += socreGet;
         this.scoreLabel.string = this.score;
         Buff.checkBuffThrehold(this.score);
+        Bomb.checkBuffThrehold(this.score);
         this.checkLevelUp();
     },
 
